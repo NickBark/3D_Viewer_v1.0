@@ -1,7 +1,5 @@
 #include "file_read.h"
 
-#include <string.h>
-
 int readFile(const char* name) {
     FILE* fp;
     int ret = 0;
@@ -20,16 +18,10 @@ int readFile(const char* name) {
         printf("%s\n", name);
 
         if ((fp = fopen(name, "r")) != NULL && regex_found >= 0) {
-            char spec[255] = {};
-            double x = 0;
-            double y = 0;
-            double z = 0;
-            double w = 0;
-
+            char tmpStr[255] = {};
             while (!feof(fp)) {
-                fscanf(fp, "%s %lf %lf %lf %lf", spec, &x, &y, &z, &w);
-                if (!strcmp(spec, "v") || !strcmp(spec, "f"))
-                    printf("%s %lf %lf %lf %lf\n", spec, x, y, z, w);
+                fgets(tmpStr, 255, fp);
+                parsStr(tmpStr);
             }
             fclose(fp);
         } else {
@@ -37,5 +29,24 @@ int readFile(const char* name) {
         }
     }
 
+    return ret;
+}
+
+int parsStr(char* input) {
+    int ret = 0;
+    char* token = 0;
+
+    token = strtok(input, " ");
+    if (!strcmp(token, "v")) {
+        while (token != NULL) {
+            printf("%s ", token);
+            token = strtok(NULL, " ");
+        }
+    } else if (!strcmp(token, "f")) {
+        while (token != NULL) {
+            printf("%s ", token);
+            token = strtok(NULL, " /");
+        }
+    }
     return ret;
 }

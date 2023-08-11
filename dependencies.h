@@ -1,8 +1,9 @@
 #ifndef DEPENDENCIES_H
-#define STACK_CONTAINER_H
+#define DEPENDENCIES_H
 
 #include <pcre.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#endif  // S21_VIEWER_CORE_H
+#endif  // DEPENDENCIES_H
