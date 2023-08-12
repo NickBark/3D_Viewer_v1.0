@@ -1,6 +1,6 @@
 CC= gcc
 CFLAGS=-g -Werror -Wextra -std=c11
-SOURSES=s21_viewer_core.c file_read.c
+SOURSES=s21_viewer_core.c file_read.c container.c
 OBJECTS=$(SOURSES:.c=.o)
 TEST_FLAGS=-lcheck $(shell pkg-config --cflags --libs check)
 LIB=libs21_viewer_core.a

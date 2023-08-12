@@ -1,6 +1,6 @@
 #include "file_read.h"
 
-int readFile(const char* name) {
+int readFile(const char* name, LinkedListVertex* list) {
     FILE* fp;
     int ret = 0;
     const char* pattern = "^.*\\.obj$";
@@ -21,7 +21,7 @@ int readFile(const char* name) {
             char tmpStr[255] = {};
             while (!feof(fp)) {
                 fgets(tmpStr, 255, fp);
-                parsStr(tmpStr);
+                parsStr(tmpStr, list);
             }
             fclose(fp);
         } else {
@@ -32,19 +32,23 @@ int readFile(const char* name) {
     return ret;
 }
 
-int parsStr(char* input) {
+int parsStr(char* input, LinkedListVertex* list) {
     int ret = 0;
     char* token = 0;
 
     token = strtok(input, " ");
     if (!strcmp(token, "v")) {
+        double tmp[4] = {};
+        tmp[3] = 1.;
+        int i = 0;
+        token = strtok(NULL, " ");
         while (token != NULL) {
-            printf("%s ", token);
+            tmp[i++] = atof(token);
             token = strtok(NULL, " ");
         }
+        vertexPushBack(list, tmp[0], tmp[1], tmp[2], tmp[3]);
     } else if (!strcmp(token, "f")) {
         while (token != NULL) {
-            printf("%s ", token);
             token = strtok(NULL, " /");
         }
     }

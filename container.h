@@ -11,7 +11,17 @@ typedef struct Vertex {
     struct Vertex* next;
 } Vertex;
 
+typedef struct LinkedListVertex {
+    Vertex* head;
+    Vertex* tail;
+    int vertexCount;
+} LinkedListVertex;
+
 Vertex* initVeertex(double x, double y, double z, double w);
-void vertexPush(Vertex** v, double x, double y, double z, double w);
-void vertexPop(Vertex** v);
+void vertexPushBack(LinkedListVertex* list, double x, double y, double z,
+                    double w);
+int vertexPop(Vertex** v);
+void printVertexList(LinkedListVertex* list);
+Vertex* findVertex(LinkedListVertex* list, int index);
+
 #endif  // CONTAINER_H
