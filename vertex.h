@@ -1,5 +1,5 @@
-#ifndef CONTAINER_H
-#define CONTAINER_H
+#ifndef VERTEX_H
+#define VERTEX_H
 
 #include "dependencies.h"
 
@@ -20,8 +20,8 @@ typedef struct LinkedListVertex {
 Vertex* initVeertex(double x, double y, double z, double w);
 void vertexPushBack(LinkedListVertex* list, double x, double y, double z,
                     double w);
-int vertexPop(Vertex** v);
+int vertexPop(LinkedListVertex* list);
 void printVertexList(LinkedListVertex* list);
 Vertex* findVertex(LinkedListVertex* list, int index);
 
-#endif  // CONTAINER_H
+#endif  // VERTEX_H

@@ -1,4 +1,4 @@
-#include "container.h"
+#include "vertex.h"
 
 Vertex* initVeertex(double x, double y, double z, double w) {
     Vertex* v = malloc(sizeof(Vertex));
@@ -27,13 +27,14 @@ void vertexPushBack(LinkedListVertex* list, double x, double y, double z,
     list->vertexCount++;
 }
 
-int vertexPop(Vertex** v) {
+int vertexPop(LinkedListVertex* list) {
     int ret = 0;
-    if (*v == NULL) {
+    if (list->head == NULL) {
         ret = 1;
     } else {
-        Vertex* tmp = *v;
-        *v = (*v)->next;
+        Vertex* tmp = list->head;
+        list->head = list->head->next;
+        list->vertexCount--;
         free(tmp);
     }
 
