@@ -26,7 +26,11 @@ void move(LinkedListVertex* list, double x_move, double y_move, double z_move) {
         current->x = result.matrix[0][0];
         current->y = result.matrix[1][0];
         current->z = result.matrix[2][0];
+        s21_remove_matrix(&result);
     }
+
+    s21_remove_matrix(&moveMatrix);
+    s21_remove_matrix(&startingPoint);
 }
 
 void rotate(LinkedListVertex* list, double angle, char axis, char route) {
@@ -60,6 +64,7 @@ void rotate(LinkedListVertex* list, double angle, char axis, char route) {
             s21_mult_matrix(&rotateMatrix, &startingPoint, &result);
             current->y = result.matrix[0][0];
             current->z = result.matrix[1][0];
+            s21_remove_matrix(&result);
         }
     } else if (axis == 'Y') {
         for (int i = 1; i <= n; i++) {
@@ -69,6 +74,7 @@ void rotate(LinkedListVertex* list, double angle, char axis, char route) {
             s21_mult_matrix(&rotateMatrix, &startingPoint, &result);
             current->x = result.matrix[0][0];
             current->z = result.matrix[1][0];
+            s21_remove_matrix(&result);
         }
     } else if (axis == 'Z') {
         for (int i = 1; i <= n; i++) {
@@ -78,8 +84,11 @@ void rotate(LinkedListVertex* list, double angle, char axis, char route) {
             s21_mult_matrix(&rotateMatrix, &startingPoint, &result);
             current->x = result.matrix[0][0];
             current->y = result.matrix[1][0];
+            s21_remove_matrix(&result);
         }
     }
+    s21_remove_matrix(&rotateMatrix);
+    s21_remove_matrix(&startingPoint);
 }
 
 void scale(LinkedListVertex* list, double x_sc, double y_sc, double z_sc) {
@@ -107,5 +116,8 @@ void scale(LinkedListVertex* list, double x_sc, double y_sc, double z_sc) {
         current->x = result.matrix[0][0];
         current->y = result.matrix[1][0];
         current->z = result.matrix[2][0];
+        s21_remove_matrix(&result);
     }
+    s21_remove_matrix(&scaleMatrix);
+    s21_remove_matrix(&startingPoint);
 }

@@ -29,15 +29,15 @@ int main(int argc, char** argv) {
             // if (qqq) printf("x: %lf y:%lf z:%lf\n", qqq->x, qqq->y, qqq->z);
 
             for (int i = 0; i < 1; i++) {
-                // scale(&list, 3., 3., 3.);
-                // scale(&list, 1. / 3., 1. / 3., 1. / 3.);
-                // rotate(&list, 0.523599, 'Y', 'L');
-                // rotate(&list, 0.523599, 'Y', 'R');
-                // move(&list, 1, 2, 3);
-                // move(&list, -1, -2, -3);
+                scale(&list, 3., 3., 3.);
+                scale(&list, 1. / 3., 1. / 3., 1. / 3.);
+                rotate(&list, 0.523599, 'Y', 'L');
+                rotate(&list, 0.523599, 'Y', 'R');
+                move(&list, 1, 2, 3);
+                move(&list, -1, -2, -3);
             }
             // findVertex(&list, 1);
-            printVertexList(&list);
+            // printVertexList(&list);
             // printf("%d\n", list.vertexCount);
             // Vertex* qqq = findVertex(&list, 35290);
             // if (qqq) printf("x: %lf y:%lf z:%lf\n", qqq->x, qqq->y, qqq->z);
