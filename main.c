@@ -1,7 +1,12 @@
+#include <time.h>
+
 #include "file_read.h"
 #include "s21_viewer_core.h"
 
 int main(int argc, char** argv) {
+    double time_spent = 0.0;
+    clock_t begin = clock();
+
     system("clear");
     printf("3D_Viewer\n");
     LinkedListVertex list;
@@ -22,14 +27,23 @@ int main(int argc, char** argv) {
             // Vertex* qqq = findVertex(&list, 1);
             // if (qqq) printf("x: %lf y:%lf z:%lf\n", qqq->x, qqq->y, qqq->z);
             // move(&list, 0, 0, 5);
-            rotate(&list, 0.523599, 'Z', 'R');
-            rotate(&list, 0.523599, 'Z', 'R');
-            printVertexList(&list);
+            for (int i = 0; i < 1; i++) {
+                scale(&list, 3, 3, 3);
+                // rotate(&list, 0.523599, 'Y', 'R');
+                // rotate(&list, 0.523599, 'Y', 'L');
+            }
+            // printVertexList(&list);
             printf("%d\n", list.vertexCount);
             Vertex* qqq = findVertex(&list, 1);
             if (qqq) printf("x: %lf y:%lf z:%lf\n", qqq->x, qqq->y, qqq->z);
         }
     }
+
+    clock_t end = clock();
+
+    time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+
+    printf("The elapsed time is %f seconds\n", time_spent);
 
     return 0;
 }

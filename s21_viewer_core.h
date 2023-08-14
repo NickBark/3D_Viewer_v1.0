@@ -7,5 +7,6 @@
 
 void move(LinkedListVertex* list, double x_move, double y_move, double z_move);
 void rotate(LinkedListVertex* list, double angle, char axis, char route);
+void scale(LinkedListVertex* list, double x_sc, double y_sc, double z_sc);
 
 #endif  // S21_VIEWER_CORE_H

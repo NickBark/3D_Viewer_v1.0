@@ -78,3 +78,28 @@ void rotate(LinkedListVertex* list, double angle, char axis, char route) {
         }
     }
 }
+
+void scale(LinkedListVertex* list, double x_sc, double y_sc, double z_sc) {
+    matrix_t scaleMatrix;
+    matrix_t startingPoint;
+    matrix_t result;
+    double tmpScale[4] = {x_sc, y_sc, z_sc, 1.0};
+
+    s21_create_matrix(4, 4, &scaleMatrix);
+    s21_create_matrix(4, 1, &startingPoint);
+
+    for (int i = 0; i < scaleMatrix.columns; i++) {
+        scaleMatrix.matrix[i][i] = tmpScale[i];
+    }
+
+    for (int i = 0; i < list->vertexCount; i++) {
+        startingPoint.matrix[0][0] = list->head->x;
+        startingPoint.matrix[1][0] = list->head->y;
+        startingPoint.matrix[2][0] = list->head->z;
+        startingPoint.matrix[3][0] = 1.0;
+        s21_mult_matrix(&scaleMatrix, &startingPoint, &result);
+        vertexPushBack(list, result.matrix[0][0], result.matrix[1][0],
+                       result.matrix[2][0], 1.0);
+        vertexPop(list);
+    }
+}
