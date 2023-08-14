@@ -22,7 +22,5 @@ void polyPushBack(LinkedListPolygon* list, int* pointArr);
 int polyPop(LinkedListPolygon* list);
 void printPolyList(LinkedListPolygon* list);
 Polygon* findPoly(LinkedListPolygon* list, int index);
-// void printVertexList(LinkedListVertex* list);
-// Vertex* findVertex(LinkedListVertex* list, int index);
 
 #endif  // POLYGON_H
