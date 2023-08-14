@@ -9,6 +9,12 @@ int main(int argc, char** argv) {
 
     system("clear");
     printf("3D_Viewer\n");
+    LinkedListPolygon poly;
+    poly.head = NULL;
+    poly.tail = NULL;
+    poly.current = NULL;
+    poly.polygonCount = 0;
+
     LinkedListVertex list;
     list.head = NULL;
     list.tail = NULL;
@@ -16,7 +22,7 @@ int main(int argc, char** argv) {
     list.vertexCount = 0;
 
     if (argc > 1) {
-        if (readFile(argv[1], &list)) {
+        if (readFile(argv[1], &list, &poly)) {
             printf("ERROR\n");
         } else {
             // printVertexList(&list);
@@ -29,15 +35,16 @@ int main(int argc, char** argv) {
             // if (qqq) printf("x: %lf y:%lf z:%lf\n", qqq->x, qqq->y, qqq->z);
 
             for (int i = 0; i < 1; i++) {
-                scale(&list, 3., 3., 3.);
-                scale(&list, 1. / 3., 1. / 3., 1. / 3.);
-                rotate(&list, 0.523599, 'Y', 'L');
-                rotate(&list, 0.523599, 'Y', 'R');
-                move(&list, 1, 2, 3);
-                move(&list, -1, -2, -3);
+                // scale(&list, 3., 3., 3.);
+                // scale(&list, 1. / 3., 1. / 3., 1. / 3.);
+                // rotate(&list, 0.523599, 'Y', 'L');
+                // rotate(&list, 0.523599, 'Y', 'R');
+                // move(&list, 1, 2, 3);
+                // move(&list, -1, -2, -3);
             }
             // findVertex(&list, 1);
             // printVertexList(&list);
+            // printPolyList(&poly);
             // printf("%d\n", list.vertexCount);
             // Vertex* qqq = findVertex(&list, 35290);
             // if (qqq) printf("x: %lf y:%lf z:%lf\n", qqq->x, qqq->y, qqq->z);

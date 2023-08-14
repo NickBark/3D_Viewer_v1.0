@@ -1,6 +1,7 @@
 #include "file_read.h"
 
-int readFile(const char* name, LinkedListVertex* list) {
+int readFile(const char* name, LinkedListVertex* list,
+             LinkedListPolygon* poly) {
     FILE* fp;
     int ret = 0;
     const char* pattern = "^.*\\.obj$";
@@ -22,7 +23,7 @@ int readFile(const char* name, LinkedListVertex* list) {
             int index = 1;
             while (!feof(fp)) {
                 fgets(tmpStr, 255, fp);
-                parsStr(tmpStr, list, &index);
+                parsStr(tmpStr, list, &index, poly);
             }
             fclose(fp);
         } else {
@@ -34,7 +35,8 @@ int readFile(const char* name, LinkedListVertex* list) {
     return ret;
 }
 
-int parsStr(char* input, LinkedListVertex* list, int* index) {
+int parsStr(char* input, LinkedListVertex* list, int* index,
+            LinkedListPolygon* poly) {
     int ret = 0;
     char* token = 0;
 
@@ -50,9 +52,19 @@ int parsStr(char* input, LinkedListVertex* list, int* index) {
         }
         vertexPushBack(list, tmp[0], tmp[1], tmp[2], tmp[3], (*index)++);
     } else if (!strcmp(token, "f")) {
+        int tmp[255] = {};
+        int it = 0;
+        int num1 = 0;
+
+        token = strtok(NULL, " ");
+
         while (token != NULL) {
-            token = strtok(NULL, " /");
+            num1 = 0;
+            sscanf(token, "%d", &num1);
+            tmp[it++] = num1;
+            token = strtok(NULL, " ");
         }
+        polyPushBack(poly, tmp);
     }
     return ret;
 }
