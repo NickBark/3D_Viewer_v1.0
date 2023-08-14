@@ -15,16 +15,17 @@ void move(LinkedListVertex* list, double x_move, double y_move, double z_move) {
     moveMatrix.matrix[1][3] = y_move;
     moveMatrix.matrix[2][3] = z_move;
     int n = list->vertexCount;
-
+    Vertex* current = NULL;
     for (int i = 1; i <= n; i++) {
-        startingPoint.matrix[0][0] = findVertex(list, 1)->x;
-        startingPoint.matrix[1][0] = findVertex(list, 1)->y;
-        startingPoint.matrix[2][0] = findVertex(list, 1)->z;
+        current = findVertex(list, i);
+        startingPoint.matrix[0][0] = current->x;
+        startingPoint.matrix[1][0] = current->y;
+        startingPoint.matrix[2][0] = current->z;
         startingPoint.matrix[3][0] = 1.0;
         s21_mult_matrix(&moveMatrix, &startingPoint, &result);
-        vertexPushBack(list, result.matrix[0][0], result.matrix[1][0],
-                       result.matrix[2][0], 1.0);
-        vertexPop(list);
+        current->x = result.matrix[0][0];
+        current->y = result.matrix[1][0];
+        current->z = result.matrix[2][0];
     }
 }
 
@@ -49,32 +50,34 @@ void rotate(LinkedListVertex* list, double angle, char axis, char route) {
     }
 
     startingPoint.matrix[2][0] = 1.0;
+    int n = list->vertexCount;
+    Vertex* current = NULL;
     if (axis == 'X') {
-        for (int i = 0; i < list->vertexCount; i++) {
-            startingPoint.matrix[0][0] = list->head->y;
-            startingPoint.matrix[1][0] = list->head->z;
+        for (int i = 1; i <= n; i++) {
+            current = findVertex(list, i);
+            startingPoint.matrix[0][0] = current->y;
+            startingPoint.matrix[1][0] = current->z;
             s21_mult_matrix(&rotateMatrix, &startingPoint, &result);
-            vertexPushBack(list, list->head->x, result.matrix[0][0],
-                           result.matrix[1][0], 1.0);
-            vertexPop(list);
+            current->y = result.matrix[0][0];
+            current->z = result.matrix[1][0];
         }
     } else if (axis == 'Y') {
-        for (int i = 0; i < list->vertexCount; i++) {
-            startingPoint.matrix[0][0] = list->head->x;
-            startingPoint.matrix[1][0] = list->head->z;
+        for (int i = 1; i <= n; i++) {
+            current = findVertex(list, i);
+            startingPoint.matrix[0][0] = current->x;
+            startingPoint.matrix[1][0] = current->z;
             s21_mult_matrix(&rotateMatrix, &startingPoint, &result);
-            vertexPushBack(list, result.matrix[0][0], list->head->y,
-                           result.matrix[1][0], 1.0);
-            vertexPop(list);
+            current->x = result.matrix[0][0];
+            current->z = result.matrix[1][0];
         }
     } else if (axis == 'Z') {
-        for (int i = 0; i < list->vertexCount; i++) {
-            startingPoint.matrix[0][0] = list->head->x;
-            startingPoint.matrix[1][0] = list->head->y;
+        for (int i = 1; i <= n; i++) {
+            current = findVertex(list, i);
+            startingPoint.matrix[0][0] = current->x;
+            startingPoint.matrix[1][0] = current->y;
             s21_mult_matrix(&rotateMatrix, &startingPoint, &result);
-            vertexPushBack(list, result.matrix[0][0], result.matrix[1][0],
-                           list->head->z, 1.0);
-            vertexPop(list);
+            current->x = result.matrix[0][0];
+            current->y = result.matrix[1][0];
         }
     }
 }
@@ -92,14 +95,17 @@ void scale(LinkedListVertex* list, double x_sc, double y_sc, double z_sc) {
         scaleMatrix.matrix[i][i] = tmpScale[i];
     }
 
-    for (int i = 0; i < list->vertexCount; i++) {
-        startingPoint.matrix[0][0] = list->head->x;
-        startingPoint.matrix[1][0] = list->head->y;
-        startingPoint.matrix[2][0] = list->head->z;
+    int n = list->vertexCount;
+    Vertex* current = NULL;
+    for (int i = 1; i <= n; i++) {
+        current = findVertex(list, i);
+        startingPoint.matrix[0][0] = current->x;
+        startingPoint.matrix[1][0] = current->y;
+        startingPoint.matrix[2][0] = current->z;
         startingPoint.matrix[3][0] = 1.0;
         s21_mult_matrix(&scaleMatrix, &startingPoint, &result);
-        vertexPushBack(list, result.matrix[0][0], result.matrix[1][0],
-                       result.matrix[2][0], 1.0);
-        vertexPop(list);
+        current->x = result.matrix[0][0];
+        current->y = result.matrix[1][0];
+        current->z = result.matrix[2][0];
     }
 }

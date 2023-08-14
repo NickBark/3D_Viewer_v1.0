@@ -19,20 +19,22 @@ int readFile(const char* name, LinkedListVertex* list) {
 
         if ((fp = fopen(name, "r")) != NULL && regex_found >= 0) {
             char tmpStr[255] = {};
+            int index = 1;
             while (!feof(fp)) {
                 fgets(tmpStr, 255, fp);
-                parsStr(tmpStr, list);
+                parsStr(tmpStr, list, &index);
             }
             fclose(fp);
         } else {
             ret = 1;
         }
+        pcre_free(re);
     }
 
     return ret;
 }
 
-int parsStr(char* input, LinkedListVertex* list) {
+int parsStr(char* input, LinkedListVertex* list, int* index) {
     int ret = 0;
     char* token = 0;
 
@@ -46,7 +48,7 @@ int parsStr(char* input, LinkedListVertex* list) {
             tmp[i++] = atof(token);
             token = strtok(NULL, " ");
         }
-        vertexPushBack(list, tmp[0], tmp[1], tmp[2], tmp[3]);
+        vertexPushBack(list, tmp[0], tmp[1], tmp[2], tmp[3], (*index)++);
     } else if (!strcmp(token, "f")) {
         while (token != NULL) {
             token = strtok(NULL, " /");

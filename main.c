@@ -12,6 +12,7 @@ int main(int argc, char** argv) {
     LinkedListVertex list;
     list.head = NULL;
     list.tail = NULL;
+    list.current = NULL;
     list.vertexCount = 0;
 
     if (argc > 1) {
@@ -21,22 +22,36 @@ int main(int argc, char** argv) {
             // printVertexList(&list);
             printf("OK\n");
             printf("vc: %d\n", list.vertexCount);
-            Vertex* ppp = findVertex(&list, 35290);
+            // Vertex* ppp = findVertex(&list, 35290);
             // printf("x: %lf\n", ppp ? ppp->x : 0);
 
             // Vertex* qqq = findVertex(&list, 1);
             // if (qqq) printf("x: %lf y:%lf z:%lf\n", qqq->x, qqq->y, qqq->z);
-            // move(&list, 0, 0, 5);
+
             for (int i = 0; i < 1; i++) {
-                scale(&list, 3, 3, 3);
-                // rotate(&list, 0.523599, 'Y', 'R');
+                // scale(&list, 3., 3., 3.);
+                // scale(&list, 1. / 3., 1. / 3., 1. / 3.);
                 // rotate(&list, 0.523599, 'Y', 'L');
+                // rotate(&list, 0.523599, 'Y', 'R');
+                // move(&list, 1, 2, 3);
+                // move(&list, -1, -2, -3);
             }
-            // printVertexList(&list);
-            printf("%d\n", list.vertexCount);
-            Vertex* qqq = findVertex(&list, 1);
-            if (qqq) printf("x: %lf y:%lf z:%lf\n", qqq->x, qqq->y, qqq->z);
+            // findVertex(&list, 1);
+            printVertexList(&list);
+            // printf("%d\n", list.vertexCount);
+            // Vertex* qqq = findVertex(&list, 35290);
+            // if (qqq) printf("x: %lf y:%lf z:%lf\n", qqq->x, qqq->y, qqq->z);
+            // qqq = findVertex(&list, -1);
+            // if (qqq) printf("x: %lf y:%lf z:%lf\n", qqq->x, qqq->y, qqq->z);
+            // qqq = list.current;
+            // if (qqq) printf("current index:%d\n", qqq->index);
+            // if (qqq) printf("x: %lf y:%lf z:%lf\n", qqq->x, qqq->y, qqq->z);
+            // qqq = findVertex(&list, 100);
+            // if (qqq) printf("x: %lf y:%lf z:%lf\n", qqq->x, qqq->y, qqq->z);
         }
+    }
+
+    while (!vertexPop(&list)) {
     }
 
     clock_t end = clock();
