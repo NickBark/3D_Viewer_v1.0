@@ -25,6 +25,20 @@ int main(int argc, char** argv) {
         if (readFile(argv[1], &list, &poly)) {
             printf("ERROR\n");
         } else {
+            // Polygon* current = NULL;
+            // for (int i = 0; i < 255; i++) {
+            //     current = findPoly(&poly, 35288);
+
+            //     if (current && current->pointArr[i])
+            //         printf("%d", current->pointArr[i]);
+            //     else
+            //         break;
+            // }
+
+            for (int i = 1; i <= poly.polygonCount; i++) {
+                printf("-->%d\n", findPoly(&poly, i)->pointArr[0]);
+            }
+
             // printVertexList(&list);
             printf("OK\n");
             printf("vc: %d\n", list.vertexCount);
@@ -59,6 +73,9 @@ int main(int argc, char** argv) {
     }
 
     while (!vertexPop(&list)) {
+    }
+
+    while (!polyPop(&poly)) {
     }
 
     clock_t end = clock();
