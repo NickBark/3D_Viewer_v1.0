@@ -36,7 +36,8 @@ int main(int argc, char** argv) {
             // }
 
             for (int i = 1; i <= poly.polygonCount; i++) {
-                printf("-->%d\n", findPoly(&poly, i)->pointArr[0]);
+                printf("-->%lf\n",
+                       findVertex(&list, findPoly(&poly, i)->pointArr[0])->x);
             }
 
             // printVertexList(&list);

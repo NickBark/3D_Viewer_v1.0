@@ -82,16 +82,3 @@ Polygon* findPoly(LinkedListPolygon* list, int index) {
 
     return ret;
 }
-
-// Polygon* findPoly(LinkedListPolygon* list, int index) {
-//     Polygon* ret = NULL;
-
-//     if (index <= list->polygonCount && index >= 1) {
-//         for (int i = 0; i < index; i++) {
-//             list->current = list->current->next;
-//         }
-//         ret = list->current;
-//     }
-
-//     return ret;
-// }
