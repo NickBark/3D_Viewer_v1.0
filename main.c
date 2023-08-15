@@ -35,9 +35,21 @@ int main(int argc, char** argv) {
             //         break;
             // }
 
+            Polygon* curP = NULL;
+            Vertex* curV = NULL;
             for (int i = 1; i <= poly.polygonCount; i++) {
-                printf("-->%lf\n",
-                       findVertex(&list, findPoly(&poly, i)->pointArr[0])->x);
+                curP = findPoly(&poly, i);
+                if (curP) {
+                    curV = findVertex(&list, curP->pointArr[0]);
+                    if (curV)
+                        printf("%d--> x:%lf y:%lf z:%lf\n", curP->index,
+                               curV->x, curV->y, curV->z);
+                    else
+                        printf("NULL\n");
+                } else {
+                    printf("NULL and EXIT\n");
+                    break;
+                }
             }
 
             // printVertexList(&list);
