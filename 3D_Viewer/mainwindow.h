@@ -1,19 +1,18 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <GL/gl.h>
-#include <GL/glu.h>
-
-//#include <QGLWidget>
-#include <QMainWindow>
-//#include <QtOpenGL>
-//#include <QtPlugin>
+#include "dependencies.hpp"
+#include "mainframe.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
    public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
+
+    QMenuBar* menuBar;
+    QMenu* menu;
+    MainFrame* mainFrame;
 };
 #endif  // MAINWINDOW_H

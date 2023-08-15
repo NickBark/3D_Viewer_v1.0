@@ -51,7 +51,7 @@ void printVertexList(LinkedListVertex* list) {
     int i = 0;
     while (current != NULL) {
         i++;
-        printf("v # %d: %lf %lf %lf %lf\n", current->index, current->x,
+        printf("v # %d: %.15lf %.15lf %.15lf %lf\n", current->index, current->x,
                current->y, current->z, current->w);
         current = current->next;
     }

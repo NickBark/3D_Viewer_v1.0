@@ -1,3 +1,4 @@
+
 #include <time.h>
 
 #include "file_read.h"
@@ -7,7 +8,7 @@ int main(int argc, char** argv) {
     double time_spent = 0.0;
     clock_t begin = clock();
 
-    system("clear");
+    // system("clear");
     printf("3D_Viewer\n");
     LinkedListPolygon poly;
     poly.head = NULL;
@@ -35,43 +36,53 @@ int main(int argc, char** argv) {
             //         break;
             // }
 
-            Polygon* curP = NULL;
-            Vertex* curV = NULL;
-            for (int i = 1; i <= poly.polygonCount; i++) {
-                curP = findPoly(&poly, i);
-                if (curP) {
-                    curV = findVertex(&list, curP->pointArr[0]);
-                    if (curV)
-                        printf("%d--> x:%lf y:%lf z:%lf\n", curP->index,
-                               curV->x, curV->y, curV->z);
-                    else
-                        printf("NULL\n");
-                } else {
-                    printf("NULL and EXIT\n");
-                    break;
-                }
-            }
+            // Polygon* curP = NULL;
+            // Vertex* curV = NULL;
+            // int exit = 0;
+            // for (int j = 0; j < 255; j++) {
+            //     // if (exit) break;
+            //     for (int i = 1; i <= poly.polygonCount; i++) {
+            //         curP = findPoly(&poly, i);
+            //         if (curP) {
+            //             if (!curP->pointArr[j]) {
+            //                 exit = 1;
+            //                 break;
+            //             }
+            //             curV = findVertex(&list, curP->pointArr[j]);
+            //             // if (curV)
+            //             //     printf("%d--> x:%lf y:%lf z:%lf\n",
+            //             //            curP->pointArr[j], curV->x, curV->y,
+            //             //            curV->z);
+            //             // else
+            //             //     printf("NULL\n");
+            //         } else {
+            //             printf("NULL and EXIT\n");
+            //             break;
+            //         }
+            //     }
+            // }
 
-            // printVertexList(&list);
+            printVertexList(&list);
+            // printPolyList(&poly);
             printf("OK\n");
-            printf("vc: %d\n", list.vertexCount);
+            // printf("vc: %d\n", list.vertexCount);
             // Vertex* ppp = findVertex(&list, 35290);
             // printf("x: %lf\n", ppp ? ppp->x : 0);
 
             // Vertex* qqq = findVertex(&list, 1);
             // if (qqq) printf("x: %lf y:%lf z:%lf\n", qqq->x, qqq->y, qqq->z);
 
-            for (int i = 0; i < 1; i++) {
-                // scale(&list, 3., 3., 3.);
-                // scale(&list, 1. / 3., 1. / 3., 1. / 3.);
-                // rotate(&list, 0.523599, 'Y', 'L');
-                // rotate(&list, 0.523599, 'Y', 'R');
-                // move(&list, 1, 2, 3);
-                // move(&list, -1, -2, -3);
-            }
+            // for (int i = 0; i < 1; i++) {
+            // scale(&list, 3., 3., 3.);
+            // scale(&list, 1. / 3., 1. / 3., 1. / 3.);
+            // rotate(&list, 0.523599, 'Y', 'L');
+            // rotate(&list, 0.523599, 'Y', 'R');
+            // move(&list, 1, 2, 3);
+            // move(&list, -1, -2, -3);
+            // }
             // findVertex(&list, 1);
             // printVertexList(&list);
-            // printPolyList(&poly);
+
             // printf("%d\n", list.vertexCount);
             // Vertex* qqq = findVertex(&list, 35290);
             // if (qqq) printf("x: %lf y:%lf z:%lf\n", qqq->x, qqq->y, qqq->z);
