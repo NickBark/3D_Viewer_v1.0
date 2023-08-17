@@ -61,10 +61,14 @@ int parsStr(char* input, LinkedListVertex* list, int* index,
         while (token != NULL) {
             num1 = 0;
             sscanf(token, "%d", &num1);
-            tmp[it++] = num1;
+            if (num1) {
+                tmp[it] = num1;
+                it++;
+            }
             token = strtok(NULL, " ");
         }
-        polyPushBack(poly, tmp);
+
+        polyPushBack(poly, tmp, it);
     }
     return ret;
 }

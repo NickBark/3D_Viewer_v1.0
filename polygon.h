@@ -2,9 +2,11 @@
 #define POLYGON_H
 
 #include "dependencies.h"
+#define POINT_ARR_NUM 255
 
 typedef struct Polygon {
-    int pointArr[255];
+    int pointArr[POINT_ARR_NUM];
+    int numOfElem;
     struct Polygon* next;
     struct Polygon* prev;
     int index;
@@ -17,8 +19,8 @@ typedef struct LinkedListPolygon {
     int polygonCount;
 } LinkedListPolygon;
 
-Polygon* initPoly(int* pointArr);
-void polyPushBack(LinkedListPolygon* list, int* pointArr);
+Polygon* initPoly(int* pointArr, int num);
+void polyPushBack(LinkedListPolygon* list, int* pointArr, int num);
 int polyPop(LinkedListPolygon* list);
 void printPolyList(LinkedListPolygon* list);
 Polygon* findPoly(LinkedListPolygon* list, int index);

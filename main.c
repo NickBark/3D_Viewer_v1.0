@@ -63,7 +63,7 @@ int main(int argc, char** argv) {
             // }
 
             printVertexList(&list);
-            // printPolyList(&poly);
+            printPolyList(&poly);
             printf("OK\n");
             // printf("vc: %d\n", list.vertexCount);
             // Vertex* ppp = findVertex(&list, 35290);

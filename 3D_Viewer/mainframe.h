@@ -14,7 +14,9 @@ class MainFrame : public QFrame {
     LinkedListPolygon* poly;
     LinkedListVertex* list;
 
-    int createLists();
+    QString* fileName;
+
+    int createLists(const char* fileName);
 
    signals:
 };

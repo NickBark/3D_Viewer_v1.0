@@ -14,5 +14,8 @@ class MainWindow : public QMainWindow {
     QMenuBar* menuBar;
     QMenu* menu;
     MainFrame* mainFrame;
+
+   public slots:
+    void slotOpenFile();
 };
 #endif  // MAINWINDOW_H

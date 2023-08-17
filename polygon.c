@@ -1,22 +1,24 @@
 #include "polygon.h"
 
-Polygon* initPoly(int* pointArr) {
+Polygon* initPoly(int* pointArr, int num) {
     Polygon* newNode = malloc(sizeof(Polygon));
     if (!newNode) {
         exit(EXIT_FAILURE);
     }
 
-    for (int i = 0; i < 255; i++) {
+    for (int i = 0; i < POINT_ARR_NUM; i++) {
         newNode->pointArr[i] = pointArr[i];
     }
+    newNode->numOfElem = num;
+
     newNode->next = NULL;
     newNode->prev = NULL;
 
     return newNode;
 }
 
-void polyPushBack(LinkedListPolygon* list, int* pointArr) {
-    Polygon* newNode = initPoly(pointArr);
+void polyPushBack(LinkedListPolygon* list, int* pointArr, int num) {
+    Polygon* newNode = initPoly(pointArr, num);
 
     if (!list->tail) {
         list->head = newNode;
@@ -56,6 +58,7 @@ void printPolyList(LinkedListPolygon* list) {
         for (int i = 0; current->pointArr[i] != 0; i++) {
             printf("%d ", current->pointArr[i]);
         }
+        printf("   numOfElem: %d", current->numOfElem);
         printf("\n");
         current = current->next;
     }

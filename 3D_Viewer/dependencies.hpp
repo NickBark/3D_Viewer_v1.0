@@ -15,7 +15,11 @@ extern "C" {
 #define WIDTH 640
 #define HEIGHT 480
 
+//#include <GL/glu.h>
+
+#include <QFileDialog>
 #include <QFrame>
+#include <QGLWidget>
 #include <QMainWindow>
 #include <QMenu>
 #include <QMenuBar>
