@@ -51,7 +51,7 @@ calc.dvi: calc.texi
 
 debug: clean $(LIB) main.o
 	$(CC) $(CFLAGS) main.o $(LIB) -lm -lpcre -o debug
-	./debug references/grass.obj
+	./debug references/rect.obj
 
 valgrind: test
 	valgrind --tool=memcheck --leak-check=full --track-origins=yes \

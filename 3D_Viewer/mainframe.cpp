@@ -6,6 +6,8 @@ MainFrame::MainFrame(QFrame* parent) : QFrame{parent} {
 
     fileName = new QString();
     glView = new GLView(this);
+
+    //    createLists("../references/cat.obj");
 }
 
 int MainFrame::createLists(const char* fileName) {
@@ -19,6 +21,7 @@ int MainFrame::createLists(const char* fileName) {
     poly->tail = NULL;
     poly->current = NULL;
     poly->polygonCount = 0;
+    poly->numOfIndex = 0;
 
     list->head = NULL;
     list->tail = NULL;

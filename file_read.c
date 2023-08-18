@@ -69,6 +69,7 @@ int parsStr(char* input, LinkedListVertex* list, int* index,
         }
 
         polyPushBack(poly, tmp, it);
+        poly->numOfIndex += it;
     }
     return ret;
 }

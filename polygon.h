@@ -17,6 +17,7 @@ typedef struct LinkedListPolygon {
     Polygon* tail;
     Polygon* current;
     int polygonCount;
+    unsigned int numOfIndex;
 } LinkedListPolygon;
 
 Polygon* initPoly(int* pointArr, int num);

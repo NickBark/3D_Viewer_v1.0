@@ -10,7 +10,7 @@ GLView::GLView(QWidget* parent) : QGLWidget{parent} {
     vertexArr = NULL;
     polyArr = NULL;
     vertexCount = 0;
-    polyArrNum = 0;
+    //    polyArrNum = 0;
     pVertexList = NULL;
     pPolyList = NULL;
 }
@@ -72,7 +72,7 @@ void GLView::paintGL() {
 
     glPushMatrix();
 
-    glTranslatef(0 + xMove / 25, 0 + yMove / 25, -50.0f);
+    glTranslatef(0 + xMove / 25, 0 + yMove / 25, -30.0f);
     glRotatef(xRot, 1, 0, 0);
     glRotatef(yRot, 0, 1, 0);
 
@@ -90,6 +90,18 @@ void GLView::drawVertex() {
     glPointSize(2);
     glColor3d(0, 0, 1);
     glDrawArrays(GL_POINTS, 0, pVertexList->vertexCount);
+
+    glColor3d(1, 0, 0);
+
+    Polygon* current = NULL;
+    int tmp = 0;
+    for (int i = 0; i < pPolyList->polygonCount; i++) {
+        current = findPoly(pPolyList, i + 1);
+        glDrawElements(GL_LINE_LOOP, current->numOfElem, GL_UNSIGNED_INT,
+                       polyArr + tmp);
+        tmp += current->numOfElem;
+    }
+
     glDisableClientState(GL_VERTEX_ARRAY);
 }
 
@@ -126,14 +138,9 @@ double* GLView::createVertexArr(LinkedListVertex* list) {
 }
 
 unsigned int* GLView::createPolyArr(LinkedListPolygon* list) {
-    polyArrNum = 0;
-    for (int i = 1; i <= list->polygonCount; i++) {
-        polyArrNum += findPoly(list, i)->numOfElem;
-        //        qDebug() << polyArrNum;
-    }
-    //    qDebug() << "poly arr num: " << polyArrNum;
+    qDebug() << "poly arr num: " << list->numOfIndex;
 
-    unsigned int* arr = new unsigned int[polyArrNum];
+    unsigned int* arr = new unsigned int[list->numOfIndex];
 
     Polygon* current = NULL;
     for (int i = 0, j = 1; j <= list->polygonCount;) {
@@ -186,7 +193,7 @@ void GLView::mouseMoveEvent(QMouseEvent* mo) {
         setCursor(Qt::OpenHandCursor);
 
         xMove += (mo->pos().x() - mouse_x0);
-        yMove += (mo->pos().y() - mouse_y0);
+        yMove -= (mo->pos().y() - mouse_y0);
 
         mouse_x0 = mo->pos().x();
         mouse_y0 = mo->pos().y();

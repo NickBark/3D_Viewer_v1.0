@@ -48,7 +48,7 @@ class GLView : public QGLWidget {
 
     unsigned int* polyArr;
     int vertexArrNum;
-    int polyArrNum;
+    //    int polyArrNum;
     int pointInPolygon;
 
     LinkedListVertex* pVertexList;

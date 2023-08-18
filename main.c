@@ -15,6 +15,7 @@ int main(int argc, char** argv) {
     poly.tail = NULL;
     poly.current = NULL;
     poly.polygonCount = 0;
+    poly.numOfIndex = 0;
 
     LinkedListVertex list;
     list.head = NULL;
@@ -64,7 +65,8 @@ int main(int argc, char** argv) {
 
             printVertexList(&list);
             printPolyList(&poly);
-            printf("OK\n");
+
+            printf("%d\nOK\n", poly.numOfIndex);
             // printf("vc: %d\n", list.vertexCount);
             // Vertex* ppp = findVertex(&list, 35290);
             // printf("x: %lf\n", ppp ? ppp->x : 0);
