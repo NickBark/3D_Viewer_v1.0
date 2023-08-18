@@ -1,6 +1,6 @@
 #include "s21_viewer_core.h"
 
-void move(LinkedListVertex* list, double x_move, double y_move, double z_move) {
+void s21_move(LinkedListVertex* list, double x_move, double y_move, double z_move) {
     matrix_t moveMatrix;
     matrix_t startingPoint;
     matrix_t result;
@@ -33,7 +33,7 @@ void move(LinkedListVertex* list, double x_move, double y_move, double z_move) {
     s21_remove_matrix(&startingPoint);
 }
 
-void rotate(LinkedListVertex* list, double angle, char axis, char route) {
+void s21_rotate(LinkedListVertex* list, double angle, char axis, char route) {
     matrix_t rotateMatrix;
     matrix_t startingPoint;
     matrix_t result;
@@ -91,7 +91,7 @@ void rotate(LinkedListVertex* list, double angle, char axis, char route) {
     s21_remove_matrix(&startingPoint);
 }
 
-void scale(LinkedListVertex* list, double x_sc, double y_sc, double z_sc) {
+void s21_scale(LinkedListVertex* list, double x_sc, double y_sc, double z_sc) {
     matrix_t scaleMatrix;
     matrix_t startingPoint;
     matrix_t result;

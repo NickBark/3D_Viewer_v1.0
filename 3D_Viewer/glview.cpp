@@ -19,8 +19,8 @@ void GLView::createArrays(LinkedListVertex* vertexList,
                           LinkedListPolygon* polyList) {
     pVertexList = vertexList;
     pPolyList = polyList;
-    //    if (vertexArr) delete[] vertexArr;
-    //    if (polyArr) delete[] polyArr;
+    if (vertexArr) delete[] vertexArr;
+    if (polyArr) delete[] polyArr;
     vertexArr = createVertexArr(pVertexList);
     polyArr = createPolyArr(pPolyList);
     //    minCoord = foundMin(vertexArr);
@@ -40,6 +40,7 @@ GLView::~GLView() {}
 void GLView::initializeGL() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glEnable(GL_DEPTH_TEST);
+
     //    glEnable(GL_CULL_FACE); // отсечение задних граней
 }
 
@@ -71,10 +72,11 @@ void GLView::paintGL() {
     glLoadIdentity();
 
     glPushMatrix();
-
-    glTranslatef(0 + xMove / 25, 0 + yMove / 25, -30.0f);
-    glRotatef(xRot, 1, 0, 0);
-    glRotatef(yRot, 0, 1, 0);
+    glTranslatef(0.0f, 0.0f, -50.0f);
+    //    glTranslatef(0.0f + xMove / 25.0f, 0.0f + yMove / 25.0f,
+    //                 -(maxCoord + 1.0f));
+    //    glRotatef(xRot, 1, 0, 0);
+    //    glRotatef(yRot, 0, 1, 0);
 
     if (pPolyList && pVertexList) {
         drawVertex();

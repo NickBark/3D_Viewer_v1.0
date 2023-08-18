@@ -20,9 +20,13 @@ extern "C" {
 #include <QFileDialog>
 #include <QFrame>
 #include <QGLWidget>
+#include <QGridLayout>
+#include <QHBoxLayout>
 #include <QMainWindow>
 #include <QMenu>
 #include <QMenuBar>
+#include <QSlider>
+#include <QVBoxLayout>
 #include <QtOpenGL>
 #include <clocale>
 #include <iostream>

@@ -63,7 +63,7 @@ int main(int argc, char** argv) {
             //     }
             // }
 
-            printVertexList(&list);
+            // printVertexList(&list);
             printPolyList(&poly);
 
             printf("%d\nOK\n", poly.numOfIndex);
