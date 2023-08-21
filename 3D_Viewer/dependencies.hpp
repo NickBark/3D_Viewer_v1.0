@@ -29,8 +29,10 @@ extern "C" {
 #include <QSlider>
 #include <QVBoxLayout>
 #include <QtOpenGL>
+#include <algorithm>
 #include <clocale>
 #include <iostream>
+#include <set>
 
 using namespace std;
 

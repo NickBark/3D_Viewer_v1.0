@@ -21,16 +21,16 @@ $(LIB): $(OBJECTS)
 	rm *.o
 
 build: $(LIB)
-	@mkdir build-SmartCalc-Desktop
-	@cd ./build-SmartCalc-Desktop/ && qmake ../SmartCalc/ && make
+	@mkdir build-3DViewer-Desktop
+	@cd ./build-3DViewer-Desktop/ && qmake ../3D_Viewer/ && make
 
 install: build unistall
-	@mkdir -p $(HOME)/School_Projects_Rewiew/SmartCalc_v1.0/
-	@cp -rf  build-SmartCalc-Desktop/ $(HOME)/School_Projects_Rewiew/SmartCalc_v1.0/
+	@mkdir -p $(HOME)/School_Projects_Rewiew/3DViewer_v1.0/
+	@cp -rf  build-3DViewer-Desktop/ $(HOME)/School_Projects_Rewiew/3DViewer_v1.0/
 	make clean
 
 unistall: 
-	rm -rf $(HOME)/School_Projects_Rewiew/SmartCalc_v1.0/
+	rm -rf $(HOME)/School_Projects_Rewiew/3DViewer_v1.0/
 
 dist:
 	@mkdir -p $(HOME)/School_Projects_Rewiew/
@@ -100,7 +100,7 @@ lcov:
 clean:
 	rm -rf *.o test *.a *.gcno *.gcda *.gcov \
 	*.html *.css *.info report main/*.o s21_math debug \
-	build-SmartCalc-Desktop/ \
+	build-3DViewer-Desktop/ \
 	*.gz *.aux *.log *.dvi *.toc *.out *.pdf \
 	&& rm -rf *.dSYM/
 

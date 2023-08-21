@@ -152,11 +152,11 @@ void ControlPanel::Properies() {
     pbMoveRightZ->setAutoRepeat(true);
     pbMoveRightZ->setFixedWidth(25);
 
-    dsbMoveXVal->setFixedWidth(50);
+    dsbMoveXVal->setFixedWidth(70);
     dsbMoveXVal->setValue(10);
-    dsbMoveYVal->setFixedWidth(50);
+    dsbMoveYVal->setFixedWidth(70);
     dsbMoveYVal->setValue(10);
-    dsbMoveZVal->setFixedWidth(50);
+    dsbMoveZVal->setFixedWidth(70);
     dsbMoveZVal->setValue(10);
 
     // Rotate
@@ -173,11 +173,11 @@ void ControlPanel::Properies() {
     pbRotateRightZ->setAutoRepeat(true);
     pbRotateRightZ->setFixedWidth(25);
 
-    dsbRotateXVal->setFixedWidth(50);
+    dsbRotateXVal->setFixedWidth(70);
     dsbRotateXVal->setValue(0.1);
-    dsbRotateYVal->setFixedWidth(50);
+    dsbRotateYVal->setFixedWidth(70);
     dsbRotateYVal->setValue(0.1);
-    dsbRotateZVal->setFixedWidth(50);
+    dsbRotateZVal->setFixedWidth(70);
     dsbRotateZVal->setValue(0.1);
 
     // Scale
@@ -194,11 +194,11 @@ void ControlPanel::Properies() {
     pbScaleRightZ->setAutoRepeat(true);
     pbScaleRightZ->setFixedWidth(25);
 
-    dsbScaleXVal->setFixedWidth(50);
+    dsbScaleXVal->setFixedWidth(70);
     dsbScaleXVal->setValue(2);
-    dsbScaleYVal->setFixedWidth(50);
+    dsbScaleYVal->setFixedWidth(70);
     dsbScaleYVal->setValue(2);
-    dsbScaleZVal->setFixedWidth(50);
+    dsbScaleZVal->setFixedWidth(70);
     dsbScaleZVal->setValue(2);
 
     lShowXMove->setMaximumWidth(30);

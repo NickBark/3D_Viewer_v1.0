@@ -1,12 +1,14 @@
 #include "s21_viewer_core.h"
 
-void s21_move(LinkedListVertex* list, double x_move, double y_move, double z_move) {
+void s21_move(LinkedListVertex* list, double x_move, double y_move,
+              double z_move) {
     matrix_t moveMatrix;
     matrix_t startingPoint;
     matrix_t result;
 
     s21_create_matrix(4, 4, &moveMatrix);
     s21_create_matrix(4, 1, &startingPoint);
+    s21_create_matrix(4, 1, &result);
 
     for (int i = 0; i < moveMatrix.columns; i++) {
         moveMatrix.matrix[i][i] = 1;
@@ -16,6 +18,7 @@ void s21_move(LinkedListVertex* list, double x_move, double y_move, double z_mov
     moveMatrix.matrix[2][3] = z_move;
     int n = list->vertexCount;
     Vertex* current = NULL;
+    list->current = list->head;
     for (int i = 1; i <= n; i++) {
         current = findVertex(list, i);
         startingPoint.matrix[0][0] = current->x;
@@ -26,11 +29,12 @@ void s21_move(LinkedListVertex* list, double x_move, double y_move, double z_mov
         current->x = result.matrix[0][0];
         current->y = result.matrix[1][0];
         current->z = result.matrix[2][0];
-        s21_remove_matrix(&result);
+        // s21_remove_matrix(&result);
     }
 
     s21_remove_matrix(&moveMatrix);
     s21_remove_matrix(&startingPoint);
+    s21_remove_matrix(&result);
 }
 
 void s21_rotate(LinkedListVertex* list, double angle, char axis, char route) {
@@ -40,6 +44,7 @@ void s21_rotate(LinkedListVertex* list, double angle, char axis, char route) {
 
     s21_create_matrix(3, 3, &rotateMatrix);
     s21_create_matrix(3, 1, &startingPoint);
+    s21_create_matrix(3, 1, &result);
 
     rotateMatrix.matrix[0][0] = cos(angle);
     rotateMatrix.matrix[1][1] = cos(angle);
@@ -56,6 +61,7 @@ void s21_rotate(LinkedListVertex* list, double angle, char axis, char route) {
     startingPoint.matrix[2][0] = 1.0;
     int n = list->vertexCount;
     Vertex* current = NULL;
+    list->current = list->head;
     if (axis == 'X') {
         for (int i = 1; i <= n; i++) {
             current = findVertex(list, i);
@@ -64,7 +70,7 @@ void s21_rotate(LinkedListVertex* list, double angle, char axis, char route) {
             s21_mult_matrix(&rotateMatrix, &startingPoint, &result);
             current->y = result.matrix[0][0];
             current->z = result.matrix[1][0];
-            s21_remove_matrix(&result);
+            // s21_remove_matrix(&result);
         }
     } else if (axis == 'Y') {
         for (int i = 1; i <= n; i++) {
@@ -74,7 +80,7 @@ void s21_rotate(LinkedListVertex* list, double angle, char axis, char route) {
             s21_mult_matrix(&rotateMatrix, &startingPoint, &result);
             current->x = result.matrix[0][0];
             current->z = result.matrix[1][0];
-            s21_remove_matrix(&result);
+            // s21_remove_matrix(&result);
         }
     } else if (axis == 'Z') {
         for (int i = 1; i <= n; i++) {
@@ -84,11 +90,12 @@ void s21_rotate(LinkedListVertex* list, double angle, char axis, char route) {
             s21_mult_matrix(&rotateMatrix, &startingPoint, &result);
             current->x = result.matrix[0][0];
             current->y = result.matrix[1][0];
-            s21_remove_matrix(&result);
+            // s21_remove_matrix(&result);
         }
     }
     s21_remove_matrix(&rotateMatrix);
     s21_remove_matrix(&startingPoint);
+    s21_remove_matrix(&result);
 }
 
 void s21_scale(LinkedListVertex* list, double x_sc, double y_sc, double z_sc) {
@@ -99,6 +106,7 @@ void s21_scale(LinkedListVertex* list, double x_sc, double y_sc, double z_sc) {
 
     s21_create_matrix(4, 4, &scaleMatrix);
     s21_create_matrix(4, 1, &startingPoint);
+    s21_create_matrix(4, 1, &result);
 
     for (int i = 0; i < scaleMatrix.columns; i++) {
         scaleMatrix.matrix[i][i] = tmpScale[i];
@@ -106,6 +114,7 @@ void s21_scale(LinkedListVertex* list, double x_sc, double y_sc, double z_sc) {
 
     int n = list->vertexCount;
     Vertex* current = NULL;
+    list->current = list->head;
     for (int i = 1; i <= n; i++) {
         current = findVertex(list, i);
         startingPoint.matrix[0][0] = current->x;
@@ -116,8 +125,9 @@ void s21_scale(LinkedListVertex* list, double x_sc, double y_sc, double z_sc) {
         current->x = result.matrix[0][0];
         current->y = result.matrix[1][0];
         current->z = result.matrix[2][0];
-        s21_remove_matrix(&result);
+        // s21_remove_matrix(&result);
     }
     s21_remove_matrix(&scaleMatrix);
     s21_remove_matrix(&startingPoint);
+    s21_remove_matrix(&result);
 }

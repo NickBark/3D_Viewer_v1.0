@@ -2,6 +2,9 @@
 
 // не забыть очистить память массивов и списков
 
+// добавил строку list->current = list->head везде что бы ускорить проход по
+// списку (по скольку значение list->current всегда сохраняет последнюю позицию)
+
 GLView::GLView(QWidget* parent) : QGLWidget{parent} {
     setGeometry(10, 35, 600, 400);
     maxCoord = 10;
@@ -86,6 +89,7 @@ void GLView::drawVertex() {
 
     Polygon* current = NULL;
     int tmp = 0;
+    pPolyList->current = pPolyList->head;
     for (int i = 0; i < pPolyList->polygonCount; i++) {
         current = findPoly(pPolyList, i + 1);
         glDrawElements(GL_LINE_LOOP, current->numOfElem, GL_UNSIGNED_INT,
@@ -102,6 +106,7 @@ double* GLView::createVertexArr(LinkedListVertex* list) {
     vertexArrNum = list->vertexCount * 3;
     double* arr = new double[vertexArrNum];
     Vertex* current = NULL;
+    list->current = list->head;
     for (int i = 0, j = 1; j <= list->vertexCount;) {
         current = findVertex(list, j);
         if (current) {
@@ -121,6 +126,7 @@ unsigned int* GLView::createPolyArr(LinkedListPolygon* list) {
     unsigned int* arr = new unsigned int[list->numOfIndex];
 
     Polygon* current = NULL;
+    list->current = list->head;
     for (int i = 0, j = 1; j <= list->polygonCount;) {
         current = findPoly(list, j);
         if (current)
@@ -129,9 +135,7 @@ unsigned int* GLView::createPolyArr(LinkedListPolygon* list) {
                     arr[i++] = current->pointArr[k] - 1;
         j++;
     }
-    //    for (int i = 0; i < polyArrNum; i++) {
-    //        qDebug() << arr[i];
-    //    }
+
     qDebug() << "SUCCESS CREATE ARRAY POLY";
     return arr;
 }
@@ -139,6 +143,7 @@ unsigned int* GLView::createPolyArr(LinkedListPolygon* list) {
 double GLView::foundMax(LinkedListVertex* list) {
     double max = list->head->z;
     Vertex* current = NULL;
+    list->current = list->head;
     for (int i = 2; i < list->vertexCount; i++) {
         current = findVertex(list, i);
         if (max < current->z) max = current->z;
@@ -195,8 +200,6 @@ void GLView::drawAxis() {
                    10, 0,  0,    // 1
                    0,  10, 0,    // 2
                    0,  0,  10};  // 3
-                                 //                   1, 0.2,  0,   // 4
-                                 //                   1, -0.2, 0};  // 5
 
     unsigned int index[] = {0, 1, 0, 2, 0, 3};
 

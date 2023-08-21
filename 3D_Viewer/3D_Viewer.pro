@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     controlpanel.cpp \
+    edge.cpp \
     glview.cpp \
     main.cpp \
     mainframe.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
 HEADERS += \
     controlpanel.h \
     dependencies.hpp \
+    edge.h \
     glview.h \
     mainframe.h \
     mainwindow.h

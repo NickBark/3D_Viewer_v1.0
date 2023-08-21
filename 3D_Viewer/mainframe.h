@@ -3,6 +3,7 @@
 
 #include "controlpanel.h"
 #include "dependencies.hpp"
+#include "edge.h"
 #include "glview.h"
 
 class MainFrame : public QFrame {
@@ -18,6 +19,8 @@ class MainFrame : public QFrame {
 
     QString* fileName;
 
+    QLabel* lInfoModel;
+
     int numOfEdges;
 
     void Designer();
@@ -26,6 +29,7 @@ class MainFrame : public QFrame {
     void Connector();
 
     int createLists(const char* fileName);
+    int uniqueEdges();
 
    private:
     QVBoxLayout* vbl;

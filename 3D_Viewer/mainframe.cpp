@@ -33,16 +33,45 @@ int MainFrame::createLists(const char* fileName) {
         ret = 1;
     } else {
         qDebug() << "SUCCESS";
+        QString info;
+
         //        numOfEdges = list->vertexCount + poly->polygonCount - 2;
         //        qDebug() << "EDGES: " << numOfEdges;
 
         glView->createArrays(list, poly);
         glView->maxCoord = glView->foundMax(list);
+
+        info += "Model Name: ";
+        info += fileName;
+        info += "\nVertex count: ";
+        info += QString::number(list->vertexCount);
+        info += "\nEdge count: ";
+        info += QString::number(uniqueEdges());
+
+        //        qDebug() << "Euler: " << list->vertexCount +
+        //        poly->polygonCount - 2;
+
+        lInfoModel->setText(info);
         glView->updateGL();
+
         //        glView->MoveCamera();
     }
 
     return ret;
+}
+
+int MainFrame::uniqueEdges() {
+    set<Edge> uniqueEdges;
+    Polygon* current;
+    for (int i = 1; i <= poly->polygonCount; i++) {
+        current = findPoly(poly, i);
+        for (int j = 0; j < current->numOfElem; j++) {
+            int v1 = current->pointArr[j];
+            int v2 = current->pointArr[(j + 1) % current->numOfElem];
+            uniqueEdges.insert(Edge(v1, v2));
+        }
+    }
+    return uniqueEdges.size();
 }
 
 void MainFrame::Designer() {
@@ -55,13 +84,17 @@ void MainFrame::Designer() {
 
     vbl = new QVBoxLayout(this);
     hbl = new QHBoxLayout(this);
+
+    lInfoModel = new QLabel(this);
 }
 
 void MainFrame::Layouts() {
     setLayout(vbl);
-    vbl->addLayout(hbl);
+    vbl->addLayout(hbl, 9);
     hbl->addWidget(glView, 4);
     hbl->addWidget(cPanel, 1);
+
+    vbl->addWidget(lInfoModel, 1);
 }
 
 void MainFrame::Properies() { vbl->setContentsMargins(10, 30, 10, 10); }

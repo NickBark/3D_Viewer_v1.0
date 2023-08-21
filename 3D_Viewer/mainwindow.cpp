@@ -22,7 +22,7 @@ MainWindow::~MainWindow() {}
 
 void MainWindow::slotOpenFile() {
     mainFrame->fileName->clear();
-
+    //    qDebug() << "--------------------->" << mainFrame->fileName;
     *(mainFrame->fileName) = QFileDialog::getOpenFileName(
         this, "Select file", "../references", "(*.obj)");
 
