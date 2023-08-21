@@ -50,6 +50,7 @@ void GLView::resizeGL(int w, int h) {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     double k = (double)w / (double)h;
+    //    glOrtho(-100, 100, -100, 100, 1, 500.0);
     glFrustum(-k, k, -1, 1, 1, 500.0);
 }
 
