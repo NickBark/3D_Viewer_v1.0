@@ -71,13 +71,16 @@ class GLView : public QGLWidget {
     double clearColorR, clearColorG, clearColorB;
 
     float vertexSize;
+    float lineWidth;
 
    public slots:
     void slotStateOfAxis();
     void slotHome();
     //    void slotSetVertexSettings(int a, const QString& senderName);
     void slotSetVertexColor(const QColor& color);
+    void slotSetEdgeColor(const QColor& color);
     void slotVertexSize(double value);
+    void slotEdgeWidth(double value);
 };
 
 #endif  // GLVIEW_H

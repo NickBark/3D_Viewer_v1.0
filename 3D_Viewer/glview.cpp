@@ -25,6 +25,7 @@ GLView::GLView(QWidget* parent) : QGLWidget{parent} {
     vertexColorGreen = 0.;
     vertexColorBlue = 1.;
     vertexSize = 2.0f;
+    lineWidth = 1.0f;
 }
 
 void GLView::createArrays(LinkedListVertex* vertexList,
@@ -89,6 +90,10 @@ void GLView::drawVertex() {
     glColor3d(vertexColorRed, vertexColorGreen, vertexColorBlue);
     glDrawArrays(GL_POINTS, 0, pVertexList->vertexCount);
 
+    glEnable(GL_LINE_STIPPLE);
+    //    glLineStipple(2, 0xAAAA);
+    glLineStipple(10, GL_LINE_STIPPLE_PATTERN);
+    glLineWidth(1);
     glColor3d(1, 0, 0);
 
     Polygon* current = NULL;
@@ -100,6 +105,8 @@ void GLView::drawVertex() {
                        polyArr + tmp);
         tmp += current->numOfElem;
     }
+
+    glDisable(GL_LINE_STIPPLE);
 
     glDisableClientState(GL_VERTEX_ARRAY);
 
@@ -212,6 +219,7 @@ void GLView::drawAxis() {
     glEnableClientState(GL_VERTEX_ARRAY);
 
     glVertexPointer(3, GL_FLOAT, 0, arr);
+    glLineWidth(1);
     glColor3d(1, 0, 0);
     glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, index);
     glColor3d(0, 1, 0);
@@ -254,7 +262,19 @@ void GLView::slotSetVertexColor(const QColor& color) {
     updateGL();
 }
 
+void GLView::slotSetEdgeColor(const QColor& color) {
+    vertexColorRed = static_cast<double>(color.red()) / 255.;
+    vertexColorGreen = static_cast<double>(color.green()) / 255.;
+    vertexColorBlue = static_cast<double>(color.blue()) / 255.;
+    updateGL();
+}
+
 void GLView::slotVertexSize(double value) {
     vertexSize = static_cast<float>(value);
+    updateGL();
+}
+
+void GLView::slotEdgeWidth(double value) {
+    lineWidth = static_cast<float>(value);
     updateGL();
 }
