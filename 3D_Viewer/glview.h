@@ -64,6 +64,7 @@ class GLView : public QGLWidget {
 
    public slots:
     void slotStateOfAxis();
+    void slotHome();
 
    signals:
 };

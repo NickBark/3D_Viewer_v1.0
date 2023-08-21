@@ -221,3 +221,12 @@ void GLView::slotStateOfAxis() {
     stateOfAxis = !stateOfAxis;
     updateGL();
 }
+
+void GLView::slotHome() {
+    yRot = 0;
+    xRot = 0;
+    xMove = 0;
+    yMove = 0;
+    zoom = 0;
+    updateGL();
+}

@@ -72,6 +72,8 @@ class ControlPanel : public QFrame {
     QLabel* lShowAxis;
     QCheckBox* cbShowAxis;
 
+    QPushButton* pbHome;
+
     //    QSlider* slMoveX;
     //    QSlider* slMoveY;
     //    QSlider* slMoveZ;

@@ -105,6 +105,7 @@ void MainFrame::Connector() {
 
     connect(cPanel->cbShowAxis, SIGNAL(stateChanged(int)), glView,
             SLOT(slotStateOfAxis()));
+    connect(cPanel->pbHome, SIGNAL(clicked(bool)), glView, SLOT(slotHome()));
 }
 
 void MainFrame::slotMove() {

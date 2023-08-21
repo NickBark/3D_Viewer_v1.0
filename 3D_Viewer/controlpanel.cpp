@@ -70,6 +70,8 @@ void ControlPanel::Designer() {
 
     lShowAxis = new QLabel("Show Axis:", this);
     cbShowAxis = new QCheckBox(this);
+
+    pbHome = new QPushButton("Home", this);
 }
 
 void ControlPanel::Layouts() {
@@ -125,8 +127,10 @@ void ControlPanel::Layouts() {
     glControl->addWidget(dsbScaleZVal, indexRow, 2, 1, 1);
     glControl->addWidget(pbScaleRightZ, indexRow++, 3, 1, 1);
 
+    // Optional
     glControl->addWidget(lShowAxis, indexRow, 0, 1, 1);
     glControl->addWidget(cbShowAxis, indexRow++, 1, 1, 1);
+    glControl->addWidget(pbHome, indexRow++, 0, 1, 1);
 
     //    glControl->addWidget(slMoveX, 0, 0, 1, 1);
     //    glControl->addWidget(slMoveY, 1, 0, 1, 1);

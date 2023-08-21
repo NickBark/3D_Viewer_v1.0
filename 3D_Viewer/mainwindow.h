@@ -15,8 +15,6 @@ class MainWindow : public QMainWindow {
     QMenu* menu;
     MainFrame* mainFrame;
 
-    //    QVBoxLayout* hblMain;
-
    private slots:
     void slotMenuResize();
 

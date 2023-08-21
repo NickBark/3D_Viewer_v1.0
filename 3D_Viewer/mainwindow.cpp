@@ -1,15 +1,9 @@
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
-    //    hblMain = new QVBoxLayout(this);
     mainFrame = new MainFrame();
     menuBar = new QMenuBar(this);
     menu = new QMenu("File", this);
-
-    //    setLayout(hblMain);
-    //    hblMain->addWidget(menuBar);
-    //    hblMain->addWidget(mainFrame);
-    //    menuBar->adjustSize();
 
     menuBar->setFixedWidth(this->width());
     menuBar->setFixedHeight(25);
