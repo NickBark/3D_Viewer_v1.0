@@ -63,10 +63,10 @@ int main(int argc, char** argv) {
             //     }
             // }
 
-            // printVertexList(&list);
-            printPolyList(&poly);
+            printVertexList(&list);
+            // printPolyList(&poly);
 
-            printf("%d\nOK\n", poly.numOfIndex);
+            // printf("%d\nOK\n", poly.numOfIndex);
             // printf("vc: %d\n", list.vertexCount);
             // Vertex* ppp = findVertex(&list, 35290);
             // printf("x: %lf\n", ppp ? ppp->x : 0);

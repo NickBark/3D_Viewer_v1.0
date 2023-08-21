@@ -17,6 +17,7 @@ void ControlPanel::Designer() {
     //    slMoveZ = new QSlider(this);
 
     // Move
+    labelMove = new QLabel("Move", this);
     pbMoveLeftX = new QPushButton("<-", this);
     dsbMoveXVal = new QDoubleSpinBox(this);
     pbMoveRightX = new QPushButton("->", this);
@@ -30,6 +31,7 @@ void ControlPanel::Designer() {
     pbMoveRightZ = new QPushButton("->", this);
 
     // Rotate
+    labelRotate = new QLabel("Rotate", this);
     pbRotateLeftX = new QPushButton("<-", this);
     dsbRotateXVal = new QDoubleSpinBox(this);
     pbRotateRightX = new QPushButton("->", this);
@@ -43,6 +45,7 @@ void ControlPanel::Designer() {
     pbRotateRightZ = new QPushButton("->", this);
 
     // Scale
+    labelScale = new QLabel("Scale", this);
     pbScaleLeftX = new QPushButton("<-", this);
     dsbScaleXVal = new QDoubleSpinBox(this);
     pbScaleRightX = new QPushButton("->", this);
@@ -54,47 +57,76 @@ void ControlPanel::Designer() {
     pbScaleLeftZ = new QPushButton("<-", this);
     dsbScaleZVal = new QDoubleSpinBox(this);
     pbScaleRightZ = new QPushButton("->", this);
+
+    lShowXMove = new QLabel("X:", this);
+    lShowYMove = new QLabel("Y:", this);
+    lShowZMove = new QLabel("Z:", this);
+    lShowXRotate = new QLabel("X:", this);
+    lShowYRotate = new QLabel("Y:", this);
+    lShowZRotate = new QLabel("Z:", this);
+    lShowXScale = new QLabel("X:", this);
+    lShowYScale = new QLabel("Y:", this);
+    lShowZScale = new QLabel("Z:", this);
+
+    lShowAxis = new QLabel("Show Axis:", this);
+    cbShowAxis = new QCheckBox(this);
 }
 
 void ControlPanel::Layouts() {
     setLayout(glControl);
+    int indexRow = 0;
     // Move
-    glControl->addWidget(pbMoveLeftX, 0, 0, 1, 1);
-    glControl->addWidget(dsbMoveXVal, 0, 1, 1, 1);
-    glControl->addWidget(pbMoveRightX, 0, 2, 1, 1);
+    glControl->addWidget(labelMove, indexRow++, 0, 1, 1);
+    glControl->addWidget(lShowXMove, indexRow, 0, 1, 1);
+    glControl->addWidget(pbMoveLeftX, indexRow, 1, 1, 1);
+    glControl->addWidget(dsbMoveXVal, indexRow, 2, 1, 1);
+    glControl->addWidget(pbMoveRightX, indexRow++, 3, 1, 1);
 
-    glControl->addWidget(pbMoveLeftY, 1, 0, 1, 1);
-    glControl->addWidget(dsbMoveYVal, 1, 1, 1, 1);
-    glControl->addWidget(pbMoveRightY, 1, 2, 1, 1);
+    glControl->addWidget(lShowYMove, indexRow, 0, 1, 1);
+    glControl->addWidget(pbMoveLeftY, indexRow, 1, 1, 1);
+    glControl->addWidget(dsbMoveYVal, indexRow, 2, 1, 1);
+    glControl->addWidget(pbMoveRightY, indexRow++, 3, 1, 1);
 
-    glControl->addWidget(pbMoveLeftZ, 2, 0, 1, 1);
-    glControl->addWidget(dsbMoveZVal, 2, 1, 1, 1);
-    glControl->addWidget(pbMoveRightZ, 2, 2, 1, 1);
+    glControl->addWidget(lShowZMove, indexRow, 0, 1, 1);
+    glControl->addWidget(pbMoveLeftZ, indexRow, 1, 1, 1);
+    glControl->addWidget(dsbMoveZVal, indexRow, 2, 1, 1);
+    glControl->addWidget(pbMoveRightZ, indexRow++, 3, 1, 1);
     // Rotate
-    glControl->addWidget(pbRotateLeftX, 3, 0, 1, 1);
-    glControl->addWidget(dsbRotateXVal, 3, 1, 1, 1);
-    glControl->addWidget(pbRotateRightX, 3, 2, 1, 1);
+    glControl->addWidget(labelRotate, indexRow++, 0, 1, 1);
+    glControl->addWidget(lShowXRotate, indexRow, 0, 1, 1);
+    glControl->addWidget(pbRotateLeftX, indexRow, 1, 1, 1);
+    glControl->addWidget(dsbRotateXVal, indexRow, 2, 1, 1);
+    glControl->addWidget(pbRotateRightX, indexRow++, 3, 1, 1);
 
-    glControl->addWidget(pbRotateLeftY, 4, 0, 1, 1);
-    glControl->addWidget(dsbRotateYVal, 4, 1, 1, 1);
-    glControl->addWidget(pbRotateRightY, 4, 2, 1, 1);
+    glControl->addWidget(lShowYRotate, indexRow, 0, 1, 1);
+    glControl->addWidget(pbRotateLeftY, indexRow, 1, 1, 1);
+    glControl->addWidget(dsbRotateYVal, indexRow, 2, 1, 1);
+    glControl->addWidget(pbRotateRightY, indexRow++, 3, 1, 1);
 
-    glControl->addWidget(pbRotateLeftZ, 5, 0, 1, 1);
-    glControl->addWidget(dsbRotateZVal, 5, 1, 1, 1);
-    glControl->addWidget(pbRotateRightZ, 5, 2, 1, 1);
+    glControl->addWidget(lShowZRotate, indexRow, 0, 1, 1);
+    glControl->addWidget(pbRotateLeftZ, indexRow, 1, 1, 1);
+    glControl->addWidget(dsbRotateZVal, indexRow, 2, 1, 1);
+    glControl->addWidget(pbRotateRightZ, indexRow++, 3, 1, 1);
 
     // Scale
-    glControl->addWidget(pbScaleLeftX, 6, 0, 1, 1);
-    glControl->addWidget(dsbScaleXVal, 6, 1, 1, 1);
-    glControl->addWidget(pbScaleRightX, 6, 2, 1, 1);
+    glControl->addWidget(labelScale, indexRow++, 0, 1, 1);
+    glControl->addWidget(lShowXScale, indexRow, 0, 1, 1);
+    glControl->addWidget(pbScaleLeftX, indexRow, 1, 1, 1);
+    glControl->addWidget(dsbScaleXVal, indexRow, 2, 1, 1);
+    glControl->addWidget(pbScaleRightX, indexRow++, 3, 1, 1);
 
-    glControl->addWidget(pbScaleLeftY, 7, 0, 1, 1);
-    glControl->addWidget(dsbScaleYVal, 7, 1, 1, 1);
-    glControl->addWidget(pbScaleRightY, 7, 2, 1, 1);
+    glControl->addWidget(lShowYScale, indexRow, 0, 1, 1);
+    glControl->addWidget(pbScaleLeftY, indexRow, 1, 1, 1);
+    glControl->addWidget(dsbScaleYVal, indexRow, 2, 1, 1);
+    glControl->addWidget(pbScaleRightY, indexRow++, 3, 1, 1);
 
-    glControl->addWidget(pbScaleLeftZ, 8, 0, 1, 1);
-    glControl->addWidget(dsbScaleZVal, 8, 1, 1, 1);
-    glControl->addWidget(pbScaleRightZ, 8, 2, 1, 1);
+    glControl->addWidget(lShowZScale, indexRow, 0, 1, 1);
+    glControl->addWidget(pbScaleLeftZ, indexRow, 1, 1, 1);
+    glControl->addWidget(dsbScaleZVal, indexRow, 2, 1, 1);
+    glControl->addWidget(pbScaleRightZ, indexRow++, 3, 1, 1);
+
+    glControl->addWidget(lShowAxis, indexRow, 0, 1, 1);
+    glControl->addWidget(cbShowAxis, indexRow++, 1, 1, 1);
 
     //    glControl->addWidget(slMoveX, 0, 0, 1, 1);
     //    glControl->addWidget(slMoveY, 1, 0, 1, 1);
@@ -138,8 +170,11 @@ void ControlPanel::Properies() {
     pbRotateRightZ->setFixedWidth(25);
 
     dsbRotateXVal->setFixedWidth(50);
+    dsbRotateXVal->setValue(0.1);
     dsbRotateYVal->setFixedWidth(50);
+    dsbRotateYVal->setValue(0.1);
     dsbRotateZVal->setFixedWidth(50);
+    dsbRotateZVal->setValue(0.1);
 
     // Scale
     pbScaleLeftX->setAutoRepeat(true);
@@ -156,8 +191,16 @@ void ControlPanel::Properies() {
     pbScaleRightZ->setFixedWidth(25);
 
     dsbScaleXVal->setFixedWidth(50);
+    dsbScaleXVal->setValue(2);
     dsbScaleYVal->setFixedWidth(50);
+    dsbScaleYVal->setValue(2);
     dsbScaleZVal->setFixedWidth(50);
+    dsbScaleZVal->setValue(2);
+
+    lShowXMove->setMaximumWidth(30);
+
+    cbShowAxis->setChecked(true);
+
     //    setStyleSheet("background-color: black;");
     //    slMoveX->setOrientation(Qt::Horizontal);
     //    slMoveX->setRange(-180, 180);

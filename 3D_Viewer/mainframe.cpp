@@ -35,7 +35,11 @@ int MainFrame::createLists(const char* fileName) {
         qDebug() << "SUCCESS";
         //        numOfEdges = list->vertexCount + poly->polygonCount - 2;
         //        qDebug() << "EDGES: " << numOfEdges;
+
         glView->createArrays(list, poly);
+        glView->maxCoord = glView->foundMax(list);
+        glView->updateGL();
+        //        glView->MoveCamera();
     }
 
     return ret;
@@ -63,29 +67,44 @@ void MainFrame::Layouts() {
 void MainFrame::Properies() { vbl->setContentsMargins(10, 30, 10, 10); }
 
 void MainFrame::Connector() {
-    connect(cPanel->pbMoveLeftX, SIGNAL(pressed()), this, SLOT(slotMove()));
-    connect(cPanel->pbMoveRightX, SIGNAL(pressed()), this, SLOT(slotMove()));
-    connect(cPanel->pbMoveLeftY, SIGNAL(pressed()), this, SLOT(slotMove()));
-    connect(cPanel->pbMoveRightY, SIGNAL(pressed()), this, SLOT(slotMove()));
-    connect(cPanel->pbMoveLeftZ, SIGNAL(pressed()), this, SLOT(slotMove()));
-    connect(cPanel->pbMoveRightZ, SIGNAL(pressed()), this, SLOT(slotMove()));
+    connect(cPanel->pbMoveLeftX, SIGNAL(clicked(bool)), this, SLOT(slotMove()));
+    connect(cPanel->pbMoveRightX, SIGNAL(clicked(bool)), this,
+            SLOT(slotMove()));
+    connect(cPanel->pbMoveLeftY, SIGNAL(clicked(bool)), this, SLOT(slotMove()));
+    connect(cPanel->pbMoveRightY, SIGNAL(clicked(bool)), this,
+            SLOT(slotMove()));
+    connect(cPanel->pbMoveLeftZ, SIGNAL(clicked(bool)), this, SLOT(slotMove()));
+    connect(cPanel->pbMoveRightZ, SIGNAL(clicked(bool)), this,
+            SLOT(slotMove()));
 
-    connect(cPanel->pbRotateLeftX, SIGNAL(pressed()), this, SLOT(slotRotate()));
-    connect(cPanel->pbRotateRightX, SIGNAL(pressed()), this,
+    connect(cPanel->pbRotateLeftX, SIGNAL(clicked(bool)), this,
             SLOT(slotRotate()));
-    connect(cPanel->pbRotateLeftY, SIGNAL(pressed()), this, SLOT(slotRotate()));
-    connect(cPanel->pbRotateRightY, SIGNAL(pressed()), this,
+    connect(cPanel->pbRotateRightX, SIGNAL(clicked(bool)), this,
             SLOT(slotRotate()));
-    connect(cPanel->pbRotateLeftZ, SIGNAL(pressed()), this, SLOT(slotRotate()));
-    connect(cPanel->pbRotateRightZ, SIGNAL(pressed()), this,
+    connect(cPanel->pbRotateLeftY, SIGNAL(clicked(bool)), this,
+            SLOT(slotRotate()));
+    connect(cPanel->pbRotateRightY, SIGNAL(clicked(bool)), this,
+            SLOT(slotRotate()));
+    connect(cPanel->pbRotateLeftZ, SIGNAL(clicked(bool)), this,
+            SLOT(slotRotate()));
+    connect(cPanel->pbRotateRightZ, SIGNAL(clicked(bool)), this,
             SLOT(slotRotate()));
 
-    connect(cPanel->pbScaleLeftX, SIGNAL(pressed()), this, SLOT(slotScale()));
-    connect(cPanel->pbScaleRightX, SIGNAL(pressed()), this, SLOT(slotScale()));
-    connect(cPanel->pbScaleLeftY, SIGNAL(pressed()), this, SLOT(slotScale()));
-    connect(cPanel->pbScaleRightY, SIGNAL(pressed()), this, SLOT(slotScale()));
-    connect(cPanel->pbScaleLeftZ, SIGNAL(pressed()), this, SLOT(slotScale()));
-    connect(cPanel->pbScaleRightZ, SIGNAL(pressed()), this, SLOT(slotScale()));
+    connect(cPanel->pbScaleLeftX, SIGNAL(clicked(bool)), this,
+            SLOT(slotScale()));
+    connect(cPanel->pbScaleRightX, SIGNAL(clicked(bool)), this,
+            SLOT(slotScale()));
+    connect(cPanel->pbScaleLeftY, SIGNAL(clicked(bool)), this,
+            SLOT(slotScale()));
+    connect(cPanel->pbScaleRightY, SIGNAL(clicked(bool)), this,
+            SLOT(slotScale()));
+    connect(cPanel->pbScaleLeftZ, SIGNAL(clicked(bool)), this,
+            SLOT(slotScale()));
+    connect(cPanel->pbScaleRightZ, SIGNAL(clicked(bool)), this,
+            SLOT(slotScale()));
+
+    connect(cPanel->cbShowAxis, SIGNAL(stateChanged(int)), glView,
+            SLOT(slotStateOfAxis()));
 }
 
 void MainFrame::slotMove() {
@@ -126,4 +145,21 @@ void MainFrame::slotRotate() {
     }
 }
 
-void MainFrame::slotScale() {}
+void MainFrame::slotScale() {
+    if (list && list->head) {
+        if (sender() == cPanel->pbScaleLeftX)
+            s21_scale(list, 1.0 / cPanel->dsbScaleXVal->value(), 1, 1);
+        else if (sender() == cPanel->pbScaleRightX)
+            s21_scale(list, cPanel->dsbScaleXVal->value(), 1, 1);
+        else if (sender() == cPanel->pbScaleLeftY)
+            s21_scale(list, 1, 1.0 / cPanel->dsbScaleYVal->value(), 1);
+        else if (sender() == cPanel->pbScaleRightY)
+            s21_scale(list, 1, cPanel->dsbScaleYVal->value(), 1);
+        else if (sender() == cPanel->pbScaleLeftZ)
+            s21_scale(list, 1, 1, 1.0 / cPanel->dsbScaleZVal->value());
+        else if (sender() == cPanel->pbScaleRightZ)
+            s21_scale(list, 1, 1, cPanel->dsbScaleZVal->value());
+
+        glView->createArrays(list, poly);
+    }
+}

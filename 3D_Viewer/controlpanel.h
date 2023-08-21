@@ -59,6 +59,19 @@ class ControlPanel : public QFrame {
     QDoubleSpinBox* dsbScaleZVal;
     QPushButton* pbScaleRightZ;
 
+    QLabel* lShowXMove;
+    QLabel* lShowYMove;
+    QLabel* lShowZMove;
+    QLabel* lShowXRotate;
+    QLabel* lShowYRotate;
+    QLabel* lShowZRotate;
+    QLabel* lShowXScale;
+    QLabel* lShowYScale;
+    QLabel* lShowZScale;
+
+    QLabel* lShowAxis;
+    QCheckBox* cbShowAxis;
+
     //    QSlider* slMoveX;
     //    QSlider* slMoveY;
     //    QSlider* slMoveZ;

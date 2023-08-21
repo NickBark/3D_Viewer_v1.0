@@ -1,18 +1,23 @@
 #include "glview.h"
 
 // не забыть очистить память массивов и списков
-// при очистке памяти массивов происходит вылет в некоторых случаях
 
 GLView::GLView(QWidget* parent) : QGLWidget{parent} {
     setGeometry(10, 35, 600, 400);
-    maxCoord = 100;
-    minCoord = 100;
+    maxCoord = 10;
+    //    minCoord = 100;
     vertexArr = NULL;
     polyArr = NULL;
     vertexCount = 0;
     //    polyArrNum = 0;
     pVertexList = NULL;
     pPolyList = NULL;
+    xRot = 0.;
+    yRot = 0.;
+    xMove = 0.;
+    yMove = 0.;
+    zoom = 0.;
+    stateOfAxis = 1;
 }
 
 void GLView::createArrays(LinkedListVertex* vertexList,
@@ -23,17 +28,13 @@ void GLView::createArrays(LinkedListVertex* vertexList,
     if (polyArr) delete[] polyArr;
     vertexArr = createVertexArr(pVertexList);
     polyArr = createPolyArr(pPolyList);
-    //    minCoord = foundMin(vertexArr);
-    maxCoord = foundMax(vertexArr);
+
+    qDebug() << "max Coords: " << maxCoord;
 
     vertexCount = pVertexList->vertexCount;
 
     updateGL();
 }
-
-// void GLView::createConnectVertexArray(){
-//     for(int i = 1; i < pPolyList
-// }
 
 GLView::~GLView() {}
 
@@ -45,25 +46,13 @@ void GLView::initializeGL() {
 }
 
 void GLView::resizeGL(int w, int h) {
-    //    float aspect = w / (float)h;
-    //    m_projectionMatrix.setToIdentity();
-    //    m_projectionMatrix.perspective(45, aspect, 0.1f, 10.0f);
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    //    glOrtho(-1, 1, -1, 1, 1, 2);
-
-    glFrustum(-1, 1, -1, 1, 1, 500.0);
+    double k = (double)w / (double)h;
+    glFrustum(-k, k, -1, 1, 1, 500.0);
 }
-// double ppp[] = {0, 0, 0,  0, 1, 0,  1, 1, 0,  1, 0, 0,    //
-//                 0, 0, -2, 0, 1, -2, 1, 1, -2, 1, 0, -2};  //
 
-// GLubyte indices[] = {0, 1, 2, 3,         // 36 of indices
-//                      0, 3, 4, 4,         //
-//                      0, 5, 6, 6, 1, 0,   //
-//                      1, 6, 7, 7, 2, 1,   //
-//                      7, 4, 3, 3, 2, 7,   //
-//                      4, 7, 6, 6, 5, 4};  //
 void GLView::paintGL() {
     //    glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -71,22 +60,21 @@ void GLView::paintGL() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    glPushMatrix();
-    glTranslatef(0.0f, 0.0f, -50.0f);
-    //    glTranslatef(0.0f + xMove / 25.0f, 0.0f + yMove / 25.0f,
-    //                 -(maxCoord + 1.0f));
-    //    glRotatef(xRot, 1, 0, 0);
-    //    glRotatef(yRot, 0, 1, 0);
+    glTranslatef(0.0f, 0.0f, -maxCoord - 5.0f);
 
+    //    drawAxis();
+    glTranslatef(0.0f + xMove / 25.0f, 0.0f + yMove / 25.0f, zoom);
+    glRotatef(xRot, 1, 0, 0);
+    glRotatef(yRot, 0, 1, 0);
+    if (stateOfAxis) drawAxis();
     if (pPolyList && pVertexList) {
         drawVertex();
-        //        drawPolygons();
     }
-
-    glPopMatrix();
 }
 
 void GLView::drawVertex() {
+    glPushMatrix();
+
     glVertexPointer(3, GL_DOUBLE, 0, vertexArr);
     glEnableClientState(GL_VERTEX_ARRAY);
     glPointSize(2);
@@ -105,21 +93,8 @@ void GLView::drawVertex() {
     }
 
     glDisableClientState(GL_VERTEX_ARRAY);
-}
 
-void GLView::drawPolygons() {
-    glEnableClientState(GL_VERTEX_ARRAY);
-
-    glColor3d(1, 0, 0);
-    glVertexPointer(3, GL_DOUBLE, 0, vertexArr);
-
-    glDrawArrays(GL_LINE_STRIP, 0, 4);
-
-    //    glColor3d(1, 0, 0);
-    //    glDrawRangeElements(GL_LINE, 0, 4, polyArrNum, GL_UNSIGNED_INT,
-    //    polyArr);
-
-    glDisableClientState(GL_VERTEX_ARRAY);
+    glPopMatrix();
 }
 
 double* GLView::createVertexArr(LinkedListVertex* list) {
@@ -160,18 +135,12 @@ unsigned int* GLView::createPolyArr(LinkedListPolygon* list) {
     return arr;
 }
 
-double GLView::foundMin(double* arr) {
-    double min = *arr;
-    for (int i = 1; i < vertexArrNum; i++) {
-        if (min > arr[i]) min = arr[i];
-    }
-    return min;
-}
-
-double GLView::foundMax(double* arr) {
-    double max = *arr;
-    for (int i = 1; i < vertexArrNum; i++) {
-        if (max < arr[i]) max = arr[i];
+double GLView::foundMax(LinkedListVertex* list) {
+    double max = list->head->z;
+    Vertex* current = NULL;
+    for (int i = 2; i < list->vertexCount; i++) {
+        current = findVertex(list, i);
+        if (max < current->z) max = current->z;
     }
     return max;
 }
@@ -206,4 +175,48 @@ void GLView::mouseMoveEvent(QMouseEvent* mo) {
 void GLView::mouseReleaseEvent(QMouseEvent* mo) {
     mo = mo;
     setCursor(Qt::ArrowCursor);  // Standart Cursor
+}
+
+void GLView::wheelEvent(QWheelEvent* event) {
+    QPoint numDergees = event->angleDelta();
+    zoom += numDergees.y() / 120.0f;
+    updateGL();
+}
+
+void GLView::MoveCamera() {
+    //    QMatrix4x4 viewMatrix  =
+    //    QMatrix4x4 modelMatrix;
+    //    QMatrix4X4 modelViewMatrix = viewMatrix * modelMatrix;
+}
+
+void GLView::drawAxis() {
+    float arr[] = {0,  0,  0,    // 0
+                   10, 0,  0,    // 1
+                   0,  10, 0,    // 2
+                   0,  0,  10};  // 3
+                                 //                   1, 0.2,  0,   // 4
+                                 //                   1, -0.2, 0};  // 5
+
+    unsigned int index[] = {0, 1, 0, 2, 0, 3};
+
+    glPushMatrix();
+
+    glEnableClientState(GL_VERTEX_ARRAY);
+
+    glVertexPointer(3, GL_FLOAT, 0, arr);
+    glColor3d(1, 0, 0);
+    glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, index);
+    glColor3d(0, 1, 0);
+    glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, index + 2);
+    glColor3d(0, 0, 1);
+    glDrawElements(GL_LINES, 2, GL_UNSIGNED_INT, index + 4);
+
+    glDisableClientState(GL_VERTEX_ARRAY);
+
+    glPopMatrix();
+}
+
+void GLView::slotStateOfAxis() {
+    stateOfAxis = !stateOfAxis;
+    updateGL();
 }

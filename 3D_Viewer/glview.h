@@ -21,6 +21,7 @@ class GLView : public QGLWidget {
     void mousePressEvent(QMouseEvent*) override;
     void mouseMoveEvent(QMouseEvent*) override;
     void mouseReleaseEvent(QMouseEvent*) override;
+    void wheelEvent(QWheelEvent*) override;
 
    public:
     void createArrays(LinkedListVertex* vertexList,
@@ -28,10 +29,13 @@ class GLView : public QGLWidget {
     double* createVertexArr(LinkedListVertex* list);
     unsigned int* createPolyArr(LinkedListPolygon* list);
 
-    double foundMin(double* arr);
-    double foundMax(double* arr);
+    void MoveCamera();
+
+    //    double foundMin(double* arr);
+    double foundMax(LinkedListVertex* list);
     void drawVertex();
-    void drawPolygons();
+    void drawAxis();
+    //    void drawPolygons();
 
     //   private:
     //    QMatrix4x4 m_projectionMatrix;
@@ -39,9 +43,13 @@ class GLView : public QGLWidget {
     float xRot, yRot, zRot;  // координаты вращения
     int mouse_x0, mouse_y0;  //координаты мышки
     float xMove, yMove;
+    float zoom;
+    int stateOfAxis;
 
-    GLdouble minCoord;  // минимальное значение в массиве вершин
-    GLdouble maxCoord;  // максимальное значение в массиве вершин
+    double xCenter, yCenterm, zCenter;
+
+    //    GLdouble minCoord;  // минимальное значение в массиве вершин
+    double maxCoord;  // максимальное значение в массиве вершин
 
     double* vertexArr;
     int vertexCount;
@@ -53,6 +61,9 @@ class GLView : public QGLWidget {
 
     LinkedListVertex* pVertexList;
     LinkedListPolygon* pPolyList;
+
+   public slots:
+    void slotStateOfAxis();
 
    signals:
 };

@@ -1,13 +1,20 @@
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
+    hblMain = new QVBoxLayout(this);
     mainFrame = new MainFrame();
     menuBar = new QMenuBar(this);
     menu = new QMenu("File", this);
 
-    menuBar->setMinimumWidth(WIDTH);
+    setLayout(hblMain);
+    hblMain->addWidget(menuBar);
+    hblMain->addWidget(mainFrame);
+    menuBar->adjustSize();
+
+    menuBar->setFixedWidth(this->width());
     menuBar->setFixedHeight(25);
     menuBar->addMenu(menu);
+    connect(this, SIGNAL(resized(int, int)), this, SLOT(slotMenuResize()));
 
     menu->addAction("Open file", this, SLOT(slotOpenFile()));
 
@@ -27,3 +34,10 @@ void MainWindow::slotOpenFile() {
 
     mainFrame->createLists(mainFrame->fileName->toUtf8().constData());
 }
+
+void MainWindow::resizeEvent(QResizeEvent* event) {
+    QMainWindow::resizeEvent(event);
+    emit resized(event->size().width(), event->size().height());
+}
+
+void MainWindow::slotMenuResize() { menuBar->setFixedWidth(width()); }
