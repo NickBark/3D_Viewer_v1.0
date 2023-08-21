@@ -3,6 +3,7 @@
 
 #include "dependencies.hpp"
 #include "mainframe.h"
+#include "settings.h"
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -14,12 +15,19 @@ class MainWindow : public QMainWindow {
     QMenuBar* menuBar;
     QMenu* menu;
     MainFrame* mainFrame;
+    Settings* settings;
+
+    void Designer();
+    void Layouts();
+    void Properies();
+    void Connector();
 
    private slots:
     void slotMenuResize();
 
    public slots:
     void slotOpenFile();
+    void slotOpenSettings();
 
    signals:
     void resized(int width, int height);

@@ -7,6 +7,7 @@
 #include <QPoint>
 
 #include "dependencies.hpp"
+#include "settings.h"
 
 class GLView : public QGLWidget {
     Q_OBJECT
@@ -62,11 +63,16 @@ class GLView : public QGLWidget {
     LinkedListVertex* pVertexList;
     LinkedListPolygon* pPolyList;
 
+    //    Settings* settings;
+    double vertexColorRed;
+    double vertexColorGreen;
+    double vertexColorBlue;
+
    public slots:
     void slotStateOfAxis();
     void slotHome();
-
-   signals:
+    void slotSetVertexSettings(int a, const QString& senderName);
+    void slotSetVertexColor(const QColor& color);
 };
 
 #endif  // GLVIEW_H

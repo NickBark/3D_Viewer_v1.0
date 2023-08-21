@@ -1,28 +1,62 @@
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
+    Designer();
+    Layouts();
+    Properies();
+    Connector();
+}
+
+MainWindow::~MainWindow() {}
+
+void MainWindow::Designer() {
     mainFrame = new MainFrame();
     menuBar = new QMenuBar(this);
     menu = new QMenu("File", this);
+    settings = new Settings();
+}
 
+void MainWindow::Layouts() {}
+
+void MainWindow::Properies() {
     menuBar->setFixedWidth(this->width());
     menuBar->setFixedHeight(25);
     menuBar->addMenu(menu);
     connect(this, SIGNAL(resized(int, int)), this, SLOT(slotMenuResize()));
 
     menu->addAction("Open file", this, SLOT(slotOpenFile()));
+    menu->addAction("Settings", this, SLOT(slotOpenSettings()));
 
     setMinimumSize(WIDTH, HEIGHT);
+    setWindowTitle("3D Viewer");
     setCentralWidget(mainFrame);
 
     menuBar->raise();
 }
 
-MainWindow::~MainWindow() {}
+void MainWindow::Connector() {
+    //    connect(settings->sVertexRed, &QSlider::valueChanged,
+    //    mainFrame->glView,
+    //            [=](int value) {
+    //                mainFrame->glView->slotSetVertexSettings(value, "Red");
+    //            });
+    //    connect(settings->sVertexGreen, &QSlider::valueChanged,
+    //    mainFrame->glView,
+    //            [=](int value) {
+    //                mainFrame->glView->slotSetVertexSettings(value, "Green");
+    //            });
+    //    connect(settings->sVertexBlue, &QSlider::valueChanged,
+    //    mainFrame->glView,
+    //            [=](int value) {
+    //                mainFrame->glView->slotSetVertexSettings(value, "Blue");
+    //            });
+
+    connect(settings->cdColorVertex, &QColorDialog::colorSelected,
+            mainFrame->glView, &GLView::slotSetVertexColor);
+}
 
 void MainWindow::slotOpenFile() {
     mainFrame->fileName->clear();
-    //    qDebug() << "--------------------->" << mainFrame->fileName;
     *(mainFrame->fileName) = QFileDialog::getOpenFileName(
         this, "Select file", "../references", "(*.obj)");
 
@@ -35,3 +69,5 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
 }
 
 void MainWindow::slotMenuResize() { menuBar->setFixedWidth(width()); }
+
+void MainWindow::slotOpenSettings() { settings->show(); }

@@ -18,6 +18,8 @@ extern "C" {
 //#include <GL/glu.h>
 
 #include <QCheckBox>
+#include <QColor>
+#include <QColorDialog>
 #include <QFileDialog>
 #include <QFrame>
 #include <QGLWidget>

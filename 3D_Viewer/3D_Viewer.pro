@@ -14,7 +14,8 @@ SOURCES += \
     glview.cpp \
     main.cpp \
     mainframe.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    settings.cpp
 
 HEADERS += \
     controlpanel.h \
@@ -22,7 +23,8 @@ HEADERS += \
     edge.h \
     glview.h \
     mainframe.h \
-    mainwindow.h
+    mainwindow.h \
+    settings.h
 
 LIBS += -lGLEW -lglfw -lOpenGL
 LIBS += -lglut -lGLU
