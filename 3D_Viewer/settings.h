@@ -20,12 +20,13 @@ class Settings : public QFrame {
     QGridLayout* glSettings;
     QLabel* lVertex;
     QLabel* lVertexColor;
-    QSlider* sVertexRed;
-    QSlider* sVertexGreen;
-    QSlider* sVertexBlue;
+    //    QSlider* sVertexRed;
+    //    QSlider* sVertexGreen;
+    //    QSlider* sVertexBlue;
 
     QPushButton* pbSetColorVertex;
     QColorDialog* cdColorVertex;
+    QDoubleSpinBox* sbVertexSize;
 
    public slots:
     void slotSetColorVertex();

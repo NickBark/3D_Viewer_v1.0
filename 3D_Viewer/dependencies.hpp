@@ -20,6 +20,7 @@ extern "C" {
 #include <QCheckBox>
 #include <QColor>
 #include <QColorDialog>
+#include <QDoubleSpinBox>
 #include <QFileDialog>
 #include <QFrame>
 #include <QGLWidget>

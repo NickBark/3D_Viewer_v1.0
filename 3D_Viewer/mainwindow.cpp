@@ -53,6 +53,10 @@ void MainWindow::Connector() {
 
     connect(settings->cdColorVertex, &QColorDialog::colorSelected,
             mainFrame->glView, &GLView::slotSetVertexColor);
+    connect(settings->sbVertexSize,
+            static_cast<void (QDoubleSpinBox::*)(double)>(
+                &QDoubleSpinBox::valueChanged),
+            mainFrame->glView, &GLView::slotVertexSize);
 }
 
 void MainWindow::slotOpenFile() {

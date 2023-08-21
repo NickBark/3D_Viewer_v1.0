@@ -64,15 +64,20 @@ class GLView : public QGLWidget {
     LinkedListPolygon* pPolyList;
 
     //    Settings* settings;
-    double vertexColorRed;
-    double vertexColorGreen;
-    double vertexColorBlue;
+    // vertex colors
+    double vertexColorRed, vertexColorGreen, vertexColorBlue;
+
+    // background color
+    double clearColorR, clearColorG, clearColorB;
+
+    float vertexSize;
 
    public slots:
     void slotStateOfAxis();
     void slotHome();
-    void slotSetVertexSettings(int a, const QString& senderName);
+    //    void slotSetVertexSettings(int a, const QString& senderName);
     void slotSetVertexColor(const QColor& color);
+    void slotVertexSize(double value);
 };
 
 #endif  // GLVIEW_H

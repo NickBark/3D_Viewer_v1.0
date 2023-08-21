@@ -24,6 +24,7 @@ GLView::GLView(QWidget* parent) : QGLWidget{parent} {
     vertexColorRed = 0.;
     vertexColorGreen = 0.;
     vertexColorBlue = 1.;
+    vertexSize = 2.0f;
 }
 
 void GLView::createArrays(LinkedListVertex* vertexList,
@@ -84,7 +85,7 @@ void GLView::drawVertex() {
 
     glVertexPointer(3, GL_DOUBLE, 0, vertexArr);
     glEnableClientState(GL_VERTEX_ARRAY);
-    glPointSize(2);
+    glPointSize(vertexSize);
     glColor3d(vertexColorRed, vertexColorGreen, vertexColorBlue);
     glDrawArrays(GL_POINTS, 0, pVertexList->vertexCount);
 
@@ -237,17 +238,23 @@ void GLView::slotHome() {
     updateGL();
 }
 
-void GLView::slotSetVertexSettings(int a, const QString& senderName) {
-    if (senderName == "Red") vertexColorRed = static_cast<double>(a) / 255.;
-    if (senderName == "Green") vertexColorGreen = static_cast<double>(a) / 255.;
-    if (senderName == "Blue") vertexColorBlue = static_cast<double>(a) / 255.;
+// void GLView::slotSetVertexSettings(int a, const QString& senderName) {
+////    if (senderName == "Red") vertexColorRed = static_cast<double>(a) / 255.;
+////    if (senderName == "Green") vertexColorGreen = static_cast<double>(a) /
+/// 255.; /    if (senderName == "Blue") vertexColorBlue =
+/// static_cast<double>(a) / 255.;
 
-    updateGL();
-}
+////    updateGL();
+//}
 
 void GLView::slotSetVertexColor(const QColor& color) {
     vertexColorRed = static_cast<double>(color.red()) / 255.;
     vertexColorGreen = static_cast<double>(color.green()) / 255.;
     vertexColorBlue = static_cast<double>(color.blue()) / 255.;
+    updateGL();
+}
+
+void GLView::slotVertexSize(double value) {
+    vertexSize = static_cast<float>(value);
     updateGL();
 }
