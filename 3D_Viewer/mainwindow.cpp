@@ -70,8 +70,8 @@ void MainWindow::slotOpenFile() {
     mainFrame->fileName->clear();
     *(mainFrame->fileName) = QFileDialog::getOpenFileName(
         this, "Select file", "../references", "(*.obj)");
-
-    mainFrame->createLists(mainFrame->fileName->toUtf8().constData());
+    if (!mainFrame->fileName->isEmpty())
+        mainFrame->createLists(mainFrame->fileName->toUtf8().constData());
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event) {
@@ -81,4 +81,7 @@ void MainWindow::resizeEvent(QResizeEvent* event) {
 
 void MainWindow::slotMenuResize() { menuBar->setFixedWidth(width()); }
 
-void MainWindow::slotOpenSettings() { settings->show(); }
+void MainWindow::slotOpenSettings() {
+    settings->hide();
+    settings->show();
+}
