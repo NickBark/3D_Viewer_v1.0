@@ -59,11 +59,10 @@ void GLView::resizeGL(int w, int h) {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     double k = (double)w / (double)h;
-    qDebug() << "PROJECTION TYPE" << projectionType;
     if (!projectionType)
         glFrustum(-k, k, -1, 1, 1, 500.0);
     else
-        glOrtho(-maxCoord, maxCoord, -maxCoord, maxCoord, 1, 500.0);
+        glOrtho(-k * maxCoord, k * maxCoord, -maxCoord, maxCoord, 1, 500.0);
 }
 
 void GLView::paintGL() {

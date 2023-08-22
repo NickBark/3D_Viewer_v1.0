@@ -25,6 +25,8 @@ void Settings::Designer() {
     sbEdgeSize = new QDoubleSpinBox(this);
     cbEdgeType = new QComboBox(this);
 
+    lAdditionalSettings = new QLabel("Additional settings", this);
+
     pbSetBackColor = new QPushButton("Background color", this);
     cdColorBack = new QColorDialog(this);
 
@@ -45,8 +47,8 @@ void Settings::Layouts() {
     glSettings->addWidget(sbEdgeSize, index++, 0, 1, 1);
     glSettings->addWidget(cbEdgeType, index++, 0, 1, 1);
 
+    glSettings->addWidget(lAdditionalSettings, index++, 0, 1, 1);
     glSettings->addWidget(pbSetBackColor, index++, 0, 1, 1);
-
     glSettings->addWidget(cbProjection, index++, 0, 1, 1);
 }
 

@@ -35,6 +35,8 @@ class Settings : public QFrame {
     QDoubleSpinBox* sbEdgeSize;
     QComboBox* cbEdgeType;
 
+    QLabel* lAdditionalSettings;
+
     // background
     QPushButton* pbSetBackColor;
     QColorDialog* cdColorBack;
