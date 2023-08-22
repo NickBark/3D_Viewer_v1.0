@@ -18,18 +18,24 @@ class Settings : public QFrame {
 
    public:
     QGridLayout* glSettings;
-    QLabel* lVertex;
-    QLabel* lVertexColor;
-    //    QSlider* sVertexRed;
-    //    QSlider* sVertexGreen;
-    //    QSlider* sVertexBlue;
 
+    // Vertex
+    QLabel* lVertex;
     QPushButton* pbSetColorVertex;
     QColorDialog* cdColorVertex;
     QDoubleSpinBox* sbVertexSize;
+    QComboBox* cbVertexType;
 
-   public slots:
-    void slotSetColorVertex();
+    // Edge
+    QLabel* lEdge;
+    QPushButton* pbSetColorEdge;
+    QColorDialog* cdColorEdge;
+    QDoubleSpinBox* sbEdgeSize;
+    QComboBox* cbEdgeType;
+
+    // background
+    QPushButton* pbSetBackColor;
+    QColorDialog* cdColorBack;
 };
 
 #endif  // SETTINGS_H

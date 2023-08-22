@@ -15,17 +15,16 @@ GLView::GLView(QWidget* parent) : QGLWidget{parent} {
     //    polyArrNum = 0;
     pVertexList = NULL;
     pPolyList = NULL;
+
+    // control
     xRot = 0.;
     yRot = 0.;
     xMove = 0.;
     yMove = 0.;
     zoom = 0.;
     stateOfAxis = 1;
-    vertexColorRed = 0.;
-    vertexColorGreen = 0.;
-    vertexColorBlue = 1.;
-    vertexSize = 2.0f;
-    lineWidth = 1.0f;
+
+    loadSettings();
 }
 
 void GLView::createArrays(LinkedListVertex* vertexList,
@@ -47,7 +46,7 @@ void GLView::createArrays(LinkedListVertex* vertexList,
 GLView::~GLView() {}
 
 void GLView::initializeGL() {
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(clearColorR, clearColorG, clearColorB, 1.0f);
     glEnable(GL_DEPTH_TEST);
 
     //    glEnable(GL_CULL_FACE); // отсечение задних граней
@@ -86,15 +85,23 @@ void GLView::drawVertex() {
 
     glVertexPointer(3, GL_DOUBLE, 0, vertexArr);
     glEnableClientState(GL_VERTEX_ARRAY);
-    glPointSize(vertexSize);
-    glColor3d(vertexColorRed, vertexColorGreen, vertexColorBlue);
-    glDrawArrays(GL_POINTS, 0, pVertexList->vertexCount);
 
-    glEnable(GL_LINE_STIPPLE);
-    //    glLineStipple(2, 0xAAAA);
-    glLineStipple(10, GL_LINE_STIPPLE_PATTERN);
-    glLineWidth(1);
-    glColor3d(1, 0, 0);
+    if (vertexType != 2) {
+        glDisable(GL_POINT_SMOOTH);
+        if (vertexType) glEnable(GL_POINT_SMOOTH);
+        glPointSize(vertexSize);
+        glColor3d(vertexColorRed, vertexColorGreen, vertexColorBlue);
+        glDrawArrays(GL_POINTS, 0, pVertexList->vertexCount);
+    }
+
+    glDisable(GL_LINE_STIPPLE);
+    if (edgeType) {
+        glEnable(GL_LINE_STIPPLE);
+        glLineStipple(10, GL_LINE_STIPPLE_PATTERN);
+    }
+
+    glLineWidth(lineWidth);
+    glColor3d(edgeColorRed, edgeColorGreen, edgeColorBlue);
 
     Polygon* current = NULL;
     int tmp = 0;
@@ -259,22 +266,88 @@ void GLView::slotSetVertexColor(const QColor& color) {
     vertexColorRed = static_cast<double>(color.red()) / 255.;
     vertexColorGreen = static_cast<double>(color.green()) / 255.;
     vertexColorBlue = static_cast<double>(color.blue()) / 255.;
+    saveSettings();
     updateGL();
 }
 
 void GLView::slotSetEdgeColor(const QColor& color) {
-    vertexColorRed = static_cast<double>(color.red()) / 255.;
-    vertexColorGreen = static_cast<double>(color.green()) / 255.;
-    vertexColorBlue = static_cast<double>(color.blue()) / 255.;
+    edgeColorRed = static_cast<double>(color.red()) / 255.;
+    edgeColorGreen = static_cast<double>(color.green()) / 255.;
+    edgeColorBlue = static_cast<double>(color.blue()) / 255.;
+    saveSettings();
+    updateGL();
+}
+
+void GLView::slotSetBackgroundColor(const QColor& color) {
+    clearColorR = static_cast<double>(color.red()) / 255.;
+    clearColorG = static_cast<double>(color.green()) / 255.;
+    clearColorB = static_cast<double>(color.blue()) / 255.;
+    glClearColor(clearColorR, clearColorG, clearColorB, 1.0f);
+    saveSettings();
     updateGL();
 }
 
 void GLView::slotVertexSize(double value) {
     vertexSize = static_cast<float>(value);
+    saveSettings();
     updateGL();
 }
 
 void GLView::slotEdgeWidth(double value) {
     lineWidth = static_cast<float>(value);
+    saveSettings();
     updateGL();
+}
+
+void GLView::slotSetVertexType(int value) {
+    vertexType = value;
+    saveSettings();
+    updateGL();
+}
+
+void GLView::slotSetEdgeType(int value) {
+    edgeType = value;
+    saveSettings();
+    updateGL();
+}
+
+void GLView::saveSettings() {
+    QSettings settings("3D_Viewer_Settings");
+    settings.setValue("vertexColorRed", vertexColorRed);
+    settings.setValue("vertexColorGreen", vertexColorGreen);
+    settings.setValue("vertexColorBlue", vertexColorBlue);
+    settings.setValue("vertexSize", vertexSize);
+    settings.setValue("vertexType", vertexType);
+
+    settings.setValue("edgeColorRed", edgeColorRed);
+    settings.setValue("edgeColorGreen", edgeColorGreen);
+    settings.setValue("edgeColorBlue", edgeColorBlue);
+    settings.setValue("lineWidth", lineWidth);
+    settings.setValue("edgeType", edgeType);
+
+    settings.setValue("clearColorR", clearColorR);
+    settings.setValue("clearColorG", clearColorG);
+    settings.setValue("clearColorB", clearColorB);
+}
+
+void GLView::loadSettings() {
+    QSettings settings("3D_Viewer_Settings");
+    // vertex
+    vertexColorRed = settings.value("vertexColorRed", 0.).toDouble();
+    vertexColorGreen = settings.value("vertexColorGreen", 0.).toDouble();
+    vertexColorBlue = settings.value("vertexColorBlue", 1.).toDouble();
+    vertexSize = settings.value("vertexSize", 2.0f).toFloat();
+    vertexType = settings.value("vertexType", 0.).toInt();
+
+    // edge
+    edgeColorRed = settings.value("edgeColorRed", 1.).toDouble();
+    edgeColorGreen = settings.value("edgeColorGreen", 0.).toDouble();
+    edgeColorBlue = settings.value("edgeColorBlue", 0.).toDouble();
+    lineWidth = settings.value("lineWidth", 1.0f).toFloat();
+    edgeType = settings.value("edgeType", 0.).toInt();
+
+    // background
+    clearColorR = settings.value("clearColorR", 0.).toDouble();
+    clearColorG = settings.value("clearColorG", 0.).toDouble();
+    clearColorB = settings.value("clearColorB", 0.).toDouble();
 }

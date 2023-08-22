@@ -20,7 +20,9 @@ extern "C" {
 #include <QCheckBox>
 #include <QColor>
 #include <QColorDialog>
+#include <QComboBox>
 #include <QDoubleSpinBox>
+#include <QFile>
 #include <QFileDialog>
 #include <QFrame>
 #include <QGLWidget>
@@ -29,7 +31,9 @@ extern "C" {
 #include <QMainWindow>
 #include <QMenu>
 #include <QMenuBar>
+#include <QSettings>
 #include <QSlider>
+#include <QTextStream>
 #include <QVBoxLayout>
 #include <QtOpenGL>
 #include <algorithm>

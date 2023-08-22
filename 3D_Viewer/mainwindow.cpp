@@ -35,28 +35,30 @@ void MainWindow::Properies() {
 }
 
 void MainWindow::Connector() {
-    //    connect(settings->sVertexRed, &QSlider::valueChanged,
-    //    mainFrame->glView,
-    //            [=](int value) {
-    //                mainFrame->glView->slotSetVertexSettings(value, "Red");
-    //            });
-    //    connect(settings->sVertexGreen, &QSlider::valueChanged,
-    //    mainFrame->glView,
-    //            [=](int value) {
-    //                mainFrame->glView->slotSetVertexSettings(value, "Green");
-    //            });
-    //    connect(settings->sVertexBlue, &QSlider::valueChanged,
-    //    mainFrame->glView,
-    //            [=](int value) {
-    //                mainFrame->glView->slotSetVertexSettings(value, "Blue");
-    //            });
-
     connect(settings->cdColorVertex, &QColorDialog::colorSelected,
             mainFrame->glView, &GLView::slotSetVertexColor);
     connect(settings->sbVertexSize,
             static_cast<void (QDoubleSpinBox::*)(double)>(
                 &QDoubleSpinBox::valueChanged),
             mainFrame->glView, &GLView::slotVertexSize);
+    connect(
+        settings->cbVertexType,
+        static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+        mainFrame->glView, &GLView::slotSetVertexType);
+
+    connect(settings->cdColorEdge, &QColorDialog::colorSelected,
+            mainFrame->glView, &GLView::slotSetEdgeColor);
+    connect(settings->sbEdgeSize,
+            static_cast<void (QDoubleSpinBox::*)(double)>(
+                &QDoubleSpinBox::valueChanged),
+            mainFrame->glView, &GLView::slotEdgeWidth);
+    connect(
+        settings->cbEdgeType,
+        static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+        mainFrame->glView, &GLView::slotSetEdgeType);
+
+    connect(settings->cdColorBack, &QColorDialog::colorSelected,
+            mainFrame->glView, &GLView::slotSetBackgroundColor);
 }
 
 void MainWindow::slotOpenFile() {

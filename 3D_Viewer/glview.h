@@ -36,6 +36,10 @@ class GLView : public QGLWidget {
     double foundMax(LinkedListVertex* list);
     void drawVertex();
     void drawAxis();
+
+    void saveSettings();
+    void loadSettings();
+
     //    void drawPolygons();
 
     //   private:
@@ -64,23 +68,29 @@ class GLView : public QGLWidget {
     LinkedListPolygon* pPolyList;
 
     //    Settings* settings;
-    // vertex colors
+    // vertex
     double vertexColorRed, vertexColorGreen, vertexColorBlue;
+    float vertexSize;
+    int vertexType;
 
     // background color
     double clearColorR, clearColorG, clearColorB;
 
-    float vertexSize;
+    // edge
+    double edgeColorRed, edgeColorGreen, edgeColorBlue;
     float lineWidth;
+    int edgeType;
 
    public slots:
     void slotStateOfAxis();
     void slotHome();
-    //    void slotSetVertexSettings(int a, const QString& senderName);
     void slotSetVertexColor(const QColor& color);
     void slotSetEdgeColor(const QColor& color);
+    void slotSetBackgroundColor(const QColor& color);
     void slotVertexSize(double value);
     void slotEdgeWidth(double value);
+    void slotSetVertexType(int value);
+    void slotSetEdgeType(int value);
 };
 
 #endif  // GLVIEW_H

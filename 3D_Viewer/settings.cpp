@@ -12,47 +12,67 @@ Settings::Settings(QFrame *parent) : QFrame{parent} {
 
 void Settings::Designer() {
     glSettings = new QGridLayout(this);
+
     lVertex = new QLabel("Vertex", this);
-    lVertexColor = new QLabel("Vertex colors", this);
-    //    sVertexRed = new QSlider(this);
-    //    sVertexGreen = new QSlider(this);
-    //    sVertexBlue = new QSlider(this);
     pbSetColorVertex = new QPushButton("Vertex Color", this);
     cdColorVertex = new QColorDialog(this);
     sbVertexSize = new QDoubleSpinBox(this);
+    cbVertexType = new QComboBox(this);
+
+    lEdge = new QLabel("Edge", this);
+    pbSetColorEdge = new QPushButton("Edge color", this);
+    cdColorEdge = new QColorDialog(this);
+    sbEdgeSize = new QDoubleSpinBox(this);
+    cbEdgeType = new QComboBox(this);
+
+    pbSetBackColor = new QPushButton("Background color", this);
+    cdColorBack = new QColorDialog(this);
 }
 
 void Settings::Layouts() {
     int index = 0;
     setLayout(glSettings);
+
     glSettings->addWidget(lVertex, index++, 0, 1, 1);
-    glSettings->addWidget(lVertexColor, index++, 0, 1, 1);
-    //    glSettings->addWidget(sVertexRed, index++, 0, 1, 1);
-    //    glSettings->addWidget(sVertexGreen, index++, 0, 1, 1);
-    //    glSettings->addWidget(sVertexBlue, index++, 0, 1, 1);
     glSettings->addWidget(pbSetColorVertex, index++, 0, 1, 1);
     glSettings->addWidget(sbVertexSize, index++, 0, 1, 1);
+    glSettings->addWidget(cbVertexType, index++, 0, 1, 1);
+
+    glSettings->addWidget(lEdge, index++, 0, 1, 1);
+    glSettings->addWidget(pbSetColorEdge, index++, 0, 1, 1);
+    glSettings->addWidget(sbEdgeSize, index++, 0, 1, 1);
+    glSettings->addWidget(cbEdgeType, index++, 0, 1, 1);
+
+    glSettings->addWidget(pbSetBackColor, index++, 0, 1, 1);
 }
 
 void Settings::Properies() {
-    //    sVertexRed->setOrientation(Qt::Horizontal);
-    //    sVertexRed->setRange(0, 255);
-    //    sVertexRed->setValue(0);
-    //    sVertexGreen->setOrientation(Qt::Horizontal);
-    //    sVertexGreen->setRange(0, 255);
-    //    sVertexGreen->setValue(0);
-    //    sVertexBlue->setOrientation(Qt::Horizontal);
-    //    sVertexBlue->setRange(0, 255);
-    //    sVertexBlue->setValue(255);
-
     sbVertexSize->setPrefix("Vertex Size:");
     sbVertexSize->setRange(0, 255);
     sbVertexSize->setValue(2);
+    cbVertexType->addItems({"Rectangle", "Circle", "Absent"});
+
+    sbEdgeSize->setPrefix("Edge Width:");
+    sbEdgeSize->setRange(0, 255);
+    sbEdgeSize->setValue(1);
+    cbEdgeType->addItems({"Solid", "Dotted"});
 }
 
 void Settings::Connector() {
-    connect(pbSetColorVertex, &QPushButton::clicked, this,
-            &Settings::slotSetColorVertex);
+    connect(pbSetColorVertex, &QPushButton::clicked, cdColorVertex,
+            &QColorDialog::show);
+    connect(pbSetColorEdge, &QPushButton::clicked, cdColorEdge,
+            &QColorDialog::show);
+    connect(pbSetBackColor, &QPushButton::clicked, cdColorBack,
+            &QColorDialog::show);
 }
 
-void Settings::slotSetColorVertex() { cdColorVertex->show(); }
+void Settings::saveSettings() {
+    QSettings settings("3D_Viewer_Settings");
+    settings.setValue("sbVertexSize", sbVertexSize->value());
+    settings.setValue("cbVertexType", cbVertexType->currentIndex());
+    settings.setValue("sbEdgeSize", sbEdgeSize->value());
+    settings.setValue("cbEdgeType", cbEdgeType->currentIndex());
+}
+
+void Settings::loadSettings() {}
