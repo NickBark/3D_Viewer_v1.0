@@ -14,6 +14,7 @@ class MainWindow : public QMainWindow {
 
     QMenuBar* menuBar;
     QMenu* menu;
+    QMenu* recordMenu;
     MainFrame* mainFrame;
     Settings* settings;
 
@@ -28,6 +29,7 @@ class MainWindow : public QMainWindow {
    public slots:
     void slotOpenFile();
     void slotOpenSettings();
+    void slotMakeScreen();
 
    signals:
     void resized(int width, int height);

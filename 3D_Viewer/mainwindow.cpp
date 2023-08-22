@@ -13,6 +13,7 @@ void MainWindow::Designer() {
     mainFrame = new MainFrame();
     menuBar = new QMenuBar(this);
     menu = new QMenu("File", this);
+    recordMenu = new QMenu("Record", this);
     settings = new Settings();
 }
 
@@ -22,10 +23,15 @@ void MainWindow::Properies() {
     menuBar->setFixedWidth(this->width());
     menuBar->setFixedHeight(25);
     menuBar->addMenu(menu);
+    menuBar->addMenu(recordMenu);
     connect(this, SIGNAL(resized(int, int)), this, SLOT(slotMenuResize()));
 
     menu->addAction("Open file", this, SLOT(slotOpenFile()));
     menu->addAction("Settings", this, SLOT(slotOpenSettings()));
+
+    recordMenu->addAction("Make screen *.jpeg", this, SLOT(slotMakeScreen()));
+    recordMenu->addAction("Make screen *.bmp", this, SLOT(slotMakeScreen()));
+    //    recordMenu->addAction("Make screen *.bmp", this);
 
     setMinimumSize(WIDTH, HEIGHT);
     setWindowTitle("3D Viewer");
@@ -84,4 +90,24 @@ void MainWindow::slotMenuResize() { menuBar->setFixedWidth(width()); }
 void MainWindow::slotOpenSettings() {
     settings->hide();
     settings->show();
+}
+
+void MainWindow::slotMakeScreen() {
+    QImage image = mainFrame->glView->grabFrameBuffer();
+    QString fileName;
+    fileName += "3D_Viewer_Screen_";
+    fileName += QDate::currentDate().toString("yyyy-MM-dd");
+    fileName += "_";
+    fileName += QTime::currentTime().toString("hh:mm:ss");
+
+    if (qobject_cast<QAction*>(sender()) == recordMenu->actions().at(0)) {
+        fileName += ".jpeg";
+        image.save(fileName, "JPEG", 85);
+        qDebug() << fileName;
+    } else if (qobject_cast<QAction*>(sender()) ==
+               recordMenu->actions().at(1)) {
+        fileName += ".bmp";
+        image.save(fileName, "BMP");
+        qDebug() << fileName;
+    }
 }
