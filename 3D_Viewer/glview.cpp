@@ -47,23 +47,29 @@ GLView::~GLView() {}
 
 void GLView::initializeGL() {
     glClearColor(clearColorR, clearColorG, clearColorB, 1.0f);
-    glEnable(GL_DEPTH_TEST);
+    //    glEnable(GL_DEPTH_TEST);
 
     //    glEnable(GL_CULL_FACE); // отсечение задних граней
 }
 
 void GLView::resizeGL(int w, int h) {
+    width = w;
+    height = h;
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     double k = (double)w / (double)h;
-    //    glOrtho(-100, 100, -100, 100, 1, 500.0);
-    glFrustum(-k, k, -1, 1, 1, 500.0);
+    qDebug() << "PROJECTION TYPE" << projectionType;
+    if (!projectionType)
+        glFrustum(-k, k, -1, 1, 1, 500.0);
+    else
+        glOrtho(-maxCoord, maxCoord, -maxCoord, maxCoord, 1, 500.0);
 }
 
 void GLView::paintGL() {
     //    glClearColor(0, 0, 0, 0);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
@@ -311,6 +317,13 @@ void GLView::slotSetEdgeType(int value) {
     updateGL();
 }
 
+void GLView::slotSetProjection(int value) {
+    projectionType = value;
+    saveSettings();
+    resizeGL(width, height);
+    updateGL();
+}
+
 void GLView::saveSettings() {
     QSettings settings("Bober", "3D_Viewer_Settings");
     settings.setValue("vertexColorRed", vertexColorRed);
@@ -328,6 +341,8 @@ void GLView::saveSettings() {
     settings.setValue("clearColorR", clearColorR);
     settings.setValue("clearColorG", clearColorG);
     settings.setValue("clearColorB", clearColorB);
+
+    settings.setValue("projectionType", projectionType);
 }
 
 void GLView::loadSettings() {
@@ -350,4 +365,7 @@ void GLView::loadSettings() {
     clearColorR = settings.value("clearColorR", 0.).toDouble();
     clearColorG = settings.value("clearColorG", 0.).toDouble();
     clearColorB = settings.value("clearColorB", 0.).toDouble();
+
+    // projection
+    projectionType = settings.value("projectionType", 0).toInt();
 }

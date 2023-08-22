@@ -27,6 +27,8 @@ void Settings::Designer() {
 
     pbSetBackColor = new QPushButton("Background color", this);
     cdColorBack = new QColorDialog(this);
+
+    cbProjection = new QComboBox(this);
 }
 
 void Settings::Layouts() {
@@ -44,6 +46,8 @@ void Settings::Layouts() {
     glSettings->addWidget(cbEdgeType, index++, 0, 1, 1);
 
     glSettings->addWidget(pbSetBackColor, index++, 0, 1, 1);
+
+    glSettings->addWidget(cbProjection, index++, 0, 1, 1);
 }
 
 void Settings::Properies() {
@@ -56,6 +60,8 @@ void Settings::Properies() {
     sbEdgeSize->setRange(0, 255);
     sbEdgeSize->setValue(1);
     cbEdgeType->addItems({"Solid", "Dotted"});
+
+    cbProjection->addItems({"Perspective", "Orthographic"});
 
     loadSettings();
 }
@@ -84,6 +90,10 @@ void Settings::Connector() {
         cbEdgeType,
         static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
         this, &Settings::saveSettings);
+    connect(
+        cbProjection,
+        static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+        this, &Settings::saveSettings);
 }
 
 void Settings::saveSettings() {
@@ -92,6 +102,7 @@ void Settings::saveSettings() {
     settings.setValue("cbVertexType", cbVertexType->currentIndex());
     settings.setValue("sbEdgeSize", sbEdgeSize->value());
     settings.setValue("cbEdgeType", cbEdgeType->currentIndex());
+    settings.setValue("cbProjection", cbProjection->currentIndex());
 }
 
 void Settings::loadSettings() {
@@ -100,4 +111,5 @@ void Settings::loadSettings() {
     cbVertexType->setCurrentIndex(settings.value("cbVertexType", 0).toInt());
     sbEdgeSize->setValue(settings.value("sbEdgeSize", 1.).toDouble());
     cbEdgeType->setCurrentIndex(settings.value("cbEdgeType", 0).toInt());
+    cbProjection->setCurrentIndex(settings.value("cbProjection", 0).toInt());
 }

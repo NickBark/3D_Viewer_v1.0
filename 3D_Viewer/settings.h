@@ -39,6 +39,9 @@ class Settings : public QFrame {
     QPushButton* pbSetBackColor;
     QColorDialog* cdColorBack;
 
+    // projection
+    QComboBox* cbProjection;
+
    private slots:
     void saveSettings();
 };

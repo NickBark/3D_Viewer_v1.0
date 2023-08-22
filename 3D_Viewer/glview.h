@@ -44,7 +44,8 @@ class GLView : public QGLWidget {
 
     //   private:
     //    QMatrix4x4 m_projectionMatrix;
-
+    int width;
+    int height;
     float xRot, yRot, zRot;  // координаты вращения
     int mouse_x0, mouse_y0;  //координаты мышки
     float xMove, yMove;
@@ -81,6 +82,8 @@ class GLView : public QGLWidget {
     float lineWidth;
     int edgeType;
 
+    int projectionType;
+
    public slots:
     void slotStateOfAxis();
     void slotHome();
@@ -91,6 +94,7 @@ class GLView : public QGLWidget {
     void slotEdgeWidth(double value);
     void slotSetVertexType(int value);
     void slotSetEdgeType(int value);
+    void slotSetProjection(int value);
 };
 
 #endif  // GLVIEW_H

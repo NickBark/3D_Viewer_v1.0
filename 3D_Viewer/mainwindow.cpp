@@ -59,6 +59,11 @@ void MainWindow::Connector() {
 
     connect(settings->cdColorBack, &QColorDialog::colorSelected,
             mainFrame->glView, &GLView::slotSetBackgroundColor);
+
+    connect(
+        settings->cbProjection,
+        static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+        mainFrame->glView, &GLView::slotSetProjection);
 }
 
 void MainWindow::slotOpenFile() {
