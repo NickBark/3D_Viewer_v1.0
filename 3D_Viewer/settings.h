@@ -16,6 +16,8 @@ class Settings : public QFrame {
     void Properies();
     void Connector();
 
+    void loadSettings();
+
    public:
     QGridLayout* glSettings;
 
@@ -36,6 +38,9 @@ class Settings : public QFrame {
     // background
     QPushButton* pbSetBackColor;
     QColorDialog* cdColorBack;
+
+   private slots:
+    void saveSettings();
 };
 
 #endif  // SETTINGS_H

@@ -56,6 +56,8 @@ void Settings::Properies() {
     sbEdgeSize->setRange(0, 255);
     sbEdgeSize->setValue(1);
     cbEdgeType->addItems({"Solid", "Dotted"});
+
+    loadSettings();
 }
 
 void Settings::Connector() {
@@ -65,14 +67,37 @@ void Settings::Connector() {
             &QColorDialog::show);
     connect(pbSetBackColor, &QPushButton::clicked, cdColorBack,
             &QColorDialog::show);
+
+    connect(sbVertexSize,
+            static_cast<void (QDoubleSpinBox::*)(double)>(
+                &QDoubleSpinBox::valueChanged),
+            this, &Settings::saveSettings);
+    connect(
+        cbVertexType,
+        static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+        this, &Settings::saveSettings);
+    connect(sbEdgeSize,
+            static_cast<void (QDoubleSpinBox::*)(double)>(
+                &QDoubleSpinBox::valueChanged),
+            this, &Settings::saveSettings);
+    connect(
+        cbEdgeType,
+        static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged),
+        this, &Settings::saveSettings);
 }
 
 void Settings::saveSettings() {
-    QSettings settings("3D_Viewer_Settings");
+    QSettings settings("Bober", "3D_Viewer_Settings");
     settings.setValue("sbVertexSize", sbVertexSize->value());
     settings.setValue("cbVertexType", cbVertexType->currentIndex());
     settings.setValue("sbEdgeSize", sbEdgeSize->value());
     settings.setValue("cbEdgeType", cbEdgeType->currentIndex());
 }
 
-void Settings::loadSettings() {}
+void Settings::loadSettings() {
+    QSettings settings("Bober", "3D_Viewer_Settings");
+    sbVertexSize->setValue(settings.value("sbVertexSize", 2.).toDouble());
+    cbVertexType->setCurrentIndex(settings.value("cbVertexType", 0).toInt());
+    sbEdgeSize->setValue(settings.value("sbEdgeSize", 1.).toDouble());
+    cbEdgeType->setCurrentIndex(settings.value("cbEdgeType", 0).toInt());
+}

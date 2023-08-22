@@ -312,7 +312,7 @@ void GLView::slotSetEdgeType(int value) {
 }
 
 void GLView::saveSettings() {
-    QSettings settings("3D_Viewer_Settings");
+    QSettings settings("Bober", "3D_Viewer_Settings");
     settings.setValue("vertexColorRed", vertexColorRed);
     settings.setValue("vertexColorGreen", vertexColorGreen);
     settings.setValue("vertexColorBlue", vertexColorBlue);
@@ -331,7 +331,7 @@ void GLView::saveSettings() {
 }
 
 void GLView::loadSettings() {
-    QSettings settings("3D_Viewer_Settings");
+    QSettings settings("Bober", "3D_Viewer_Settings");
     // vertex
     vertexColorRed = settings.value("vertexColorRed", 0.).toDouble();
     vertexColorGreen = settings.value("vertexColorGreen", 0.).toDouble();
