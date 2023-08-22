@@ -31,6 +31,7 @@ void MainWindow::Properies() {
 
     recordMenu->addAction("Make screen *.jpeg", this, SLOT(slotMakeScreen()));
     recordMenu->addAction("Make screen *.bmp", this, SLOT(slotMakeScreen()));
+    recordMenu->addAction("Make *.gif", this, SLOT(slotMakeScreen()));
     //    recordMenu->addAction("Make screen *.bmp", this);
 
     setMinimumSize(WIDTH, HEIGHT);
@@ -109,5 +110,7 @@ void MainWindow::slotMakeScreen() {
         fileName += ".bmp";
         image.save(fileName, "BMP");
         qDebug() << fileName;
+    } else if (qobject_cast<QAction*>(sender()) ==
+               recordMenu->actions().at(2)) {
     }
 }

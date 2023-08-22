@@ -28,12 +28,15 @@ extern "C" {
 #include <QGLWidget>
 #include <QGridLayout>
 #include <QHBoxLayout>
+#include <QImageWriter>
 #include <QMainWindow>
 #include <QMenu>
 #include <QMenuBar>
+#include <QMovie>
 #include <QSettings>
 #include <QSlider>
 #include <QTextStream>
+#include <QThread>
 #include <QVBoxLayout>
 #include <QtOpenGL>
 #include <algorithm>
