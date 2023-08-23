@@ -1,5 +1,5 @@
 QT       += core gui opengl
-
+include(gifLib/QtGifImage/src/gifimage/qtgifimage.pri)
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -49,3 +49,5 @@ else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../d
 else:unix: PRE_TARGETDEPS += $$PWD/../libs21_viewer_core.a
 
 LIBS += -lm -lpcre
+
+

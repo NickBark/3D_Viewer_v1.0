@@ -12,9 +12,6 @@ void ControlPanel::Init() {}
 
 void ControlPanel::Designer() {
     glControl = new QGridLayout(this);
-    //    slMoveX = new QSlider(this);
-    //    slMoveY = new QSlider(this);
-    //    slMoveZ = new QSlider(this);
 
     // Move
     labelMove = new QLabel("Move", this);
@@ -204,16 +201,6 @@ void ControlPanel::Properies() {
     lShowXMove->setMaximumWidth(30);
 
     cbShowAxis->setChecked(true);
-
-    //    setStyleSheet("background-color: black;");
-    //    slMoveX->setOrientation(Qt::Horizontal);
-    //    slMoveX->setRange(-180, 180);
-
-    //    slMoveY->setOrientation(Qt::Horizontal);
-    //    slMoveY->setRange(-180, 180);
-
-    //    slMoveZ->setOrientation(Qt::Horizontal);
-    //    slMoveZ->setRange(-180, 180);
 }
 
 void ControlPanel::Connector() {}

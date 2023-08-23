@@ -34,6 +34,7 @@ extern "C" {
 #include <QMenuBar>
 #include <QMovie>
 #include <QSettings>
+#include <QSize>
 #include <QSlider>
 #include <QTextStream>
 #include <QThread>
@@ -43,6 +44,8 @@ extern "C" {
 #include <clocale>
 #include <iostream>
 #include <set>
+
+#include "qgifimage.h"
 
 using namespace std;
 

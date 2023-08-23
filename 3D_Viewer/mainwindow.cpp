@@ -5,6 +5,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     Layouts();
     Properies();
     Connector();
+    timerCounter = 0;
+    gifWidth = 640;
+    gifHeight = 480;
 }
 
 MainWindow::~MainWindow() {}
@@ -15,6 +18,7 @@ void MainWindow::Designer() {
     menu = new QMenu("File", this);
     recordMenu = new QMenu("Record", this);
     settings = new Settings();
+    timer = new QTimer(this);
 }
 
 void MainWindow::Layouts() {}
@@ -31,7 +35,7 @@ void MainWindow::Properies() {
 
     recordMenu->addAction("Make screen *.jpeg", this, SLOT(slotMakeScreen()));
     recordMenu->addAction("Make screen *.bmp", this, SLOT(slotMakeScreen()));
-    recordMenu->addAction("Make *.gif", this, SLOT(slotMakeScreen()));
+    recordMenu->addAction("Make *.gif", this, SLOT(slotStartTimer()));
     //    recordMenu->addAction("Make screen *.bmp", this);
 
     setMinimumSize(WIDTH, HEIGHT);
@@ -110,7 +114,26 @@ void MainWindow::slotMakeScreen() {
         fileName += ".bmp";
         image.save(fileName, "BMP");
         qDebug() << fileName;
-    } else if (qobject_cast<QAction*>(sender()) ==
-               recordMenu->actions().at(2)) {
+    }
+}
+
+void MainWindow::slotStartTimer() {
+    gif = new QGifImage(QSize(gifWidth, gifHeight));
+    gif->setDefaultDelay(10);
+    timer->start(100);
+    connect(timer, &QTimer::timeout, this, &MainWindow::slotMakeGif);
+}
+
+void MainWindow::slotMakeGif() {
+    QString fileName = "OPA2.gif";
+    QImage image =
+        mainFrame->glView->grabFrameBuffer().scaled(gifWidth, gifHeight);
+    gif->addFrame(image);
+    timerCounter++;
+    if (timerCounter == 50) {
+        timerCounter = 0;
+        timer->stop();
+        gif->save(fileName);
+        delete gif;
     }
 }

@@ -17,6 +17,12 @@ class MainWindow : public QMainWindow {
     QMenu* recordMenu;
     MainFrame* mainFrame;
     Settings* settings;
+    QTimer* timer;
+    QGifImage* gif;
+
+    int timerCounter;
+    int gifWidth;
+    int gifHeight;
 
     void Designer();
     void Layouts();
@@ -30,6 +36,8 @@ class MainWindow : public QMainWindow {
     void slotOpenFile();
     void slotOpenSettings();
     void slotMakeScreen();
+    void slotStartTimer();
+    void slotMakeGif();
 
    signals:
     void resized(int width, int height);

@@ -74,10 +74,6 @@ class ControlPanel : public QFrame {
 
     QPushButton* pbHome;
 
-    //    QSlider* slMoveX;
-    //    QSlider* slMoveY;
-    //    QSlider* slMoveZ;
-
    signals:
 };
 
