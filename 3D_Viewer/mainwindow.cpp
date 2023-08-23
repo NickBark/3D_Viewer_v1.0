@@ -119,13 +119,18 @@ void MainWindow::slotMakeScreen() {
 
 void MainWindow::slotStartTimer() {
     gif = new QGifImage(QSize(gifWidth, gifHeight));
-    gif->setDefaultDelay(10);
+    gif->setDefaultDelay(100);
     timer->start(100);
     connect(timer, &QTimer::timeout, this, &MainWindow::slotMakeGif);
 }
 
 void MainWindow::slotMakeGif() {
-    QString fileName = "OPA2.gif";
+    QString fileName;
+    fileName += "3D_Viewer_Screen_";
+    fileName += QDate::currentDate().toString("yyyy-MM-dd");
+    fileName += "_";
+    fileName += QTime::currentTime().toString("hh:mm:ss");
+    fileName += ".gif";
     QImage image =
         mainFrame->glView->grabFrameBuffer().scaled(gifWidth, gifHeight);
     gif->addFrame(image);
