@@ -10,6 +10,7 @@ class MainFrame : public QFrame {
     Q_OBJECT
    public:
     explicit MainFrame(QFrame* parent = nullptr);
+    ~MainFrame();
 
     GLView* glView;
     ControlPanel* cPanel;

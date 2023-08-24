@@ -8,6 +8,19 @@ MainFrame::MainFrame(QFrame* parent) : QFrame{parent} {
     Connector();
 }
 
+MainFrame::~MainFrame() {
+    while (!vertexPop(list)) {
+    }
+
+    while (!polyPop(poly)) {
+    }
+
+    delete list;
+    delete poly;
+    delete fileName;
+    qDebug() << "FREE MAIN_FRAME";
+}
+
 int MainFrame::createLists(const char* fileName) {
     while (!vertexPop(list)) {
     }

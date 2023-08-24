@@ -27,6 +27,12 @@ GLView::GLView(QWidget* parent) : QGLWidget{parent} {
     loadSettings();
 }
 
+GLView::~GLView() {
+    if (vertexArr) delete[] vertexArr;
+    if (polyArr) delete[] polyArr;
+    qDebug() << "FREE GLVIEW";
+}
+
 void GLView::createArrays(LinkedListVertex* vertexList,
                           LinkedListPolygon* polyList) {
     pVertexList = vertexList;
@@ -42,8 +48,6 @@ void GLView::createArrays(LinkedListVertex* vertexList,
 
     updateGL();
 }
-
-GLView::~GLView() {}
 
 void GLView::initializeGL() {
     glClearColor(clearColorR, clearColorG, clearColorB, 1.0f);

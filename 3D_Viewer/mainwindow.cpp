@@ -5,20 +5,22 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     Layouts();
     Properies();
     Connector();
-    timerCounter = 0;
-    gifWidth = 640;
-    gifHeight = 480;
 }
 
-MainWindow::~MainWindow() {}
+MainWindow::~MainWindow() {
+    delete settings;
+    delete mainFrame;
+    delete record;
+    qDebug() << "FREE MAIN_WINDOW";
+}
 
 void MainWindow::Designer() {
     mainFrame = new MainFrame();
     menuBar = new QMenuBar(this);
     menu = new QMenu("File", this);
     recordMenu = new QMenu("Record", this);
+    record = new Record(mainFrame->glView, recordMenu);
     settings = new Settings();
-    timer = new QTimer(this);
 }
 
 void MainWindow::Layouts() {}
@@ -33,10 +35,9 @@ void MainWindow::Properies() {
     menu->addAction("Open file", this, SLOT(slotOpenFile()));
     menu->addAction("Settings", this, SLOT(slotOpenSettings()));
 
-    recordMenu->addAction("Make screen *.jpeg", this, SLOT(slotMakeScreen()));
-    recordMenu->addAction("Make screen *.bmp", this, SLOT(slotMakeScreen()));
-    recordMenu->addAction("Make *.gif", this, SLOT(slotStartTimer()));
-    //    recordMenu->addAction("Make screen *.bmp", this);
+    recordMenu->addAction("Make screen *.jpeg", record, SLOT(slotMakeScreen()));
+    recordMenu->addAction("Make screen *.bmp", record, SLOT(slotMakeScreen()));
+    recordMenu->addAction("Make *.gif", record, SLOT(slotStartTimer()));
 
     setMinimumSize(WIDTH, HEIGHT);
     setWindowTitle("3D Viewer");
@@ -95,50 +96,4 @@ void MainWindow::slotMenuResize() { menuBar->setFixedWidth(width()); }
 void MainWindow::slotOpenSettings() {
     settings->hide();
     settings->show();
-}
-
-void MainWindow::slotMakeScreen() {
-    QImage image = mainFrame->glView->grabFrameBuffer();
-    QString fileName;
-    fileName += "3D_Viewer_Screen_";
-    fileName += QDate::currentDate().toString("yyyy-MM-dd");
-    fileName += "_";
-    fileName += QTime::currentTime().toString("hh:mm:ss");
-
-    if (qobject_cast<QAction*>(sender()) == recordMenu->actions().at(0)) {
-        fileName += ".jpeg";
-        image.save(fileName, "JPEG", 85);
-        qDebug() << fileName;
-    } else if (qobject_cast<QAction*>(sender()) ==
-               recordMenu->actions().at(1)) {
-        fileName += ".bmp";
-        image.save(fileName, "BMP");
-        qDebug() << fileName;
-    }
-}
-
-void MainWindow::slotStartTimer() {
-    gif = new QGifImage(QSize(gifWidth, gifHeight));
-    gif->setDefaultDelay(100);
-    timer->start(100);
-    connect(timer, &QTimer::timeout, this, &MainWindow::slotMakeGif);
-}
-
-void MainWindow::slotMakeGif() {
-    QString fileName;
-    fileName += "3D_Viewer_Screen_";
-    fileName += QDate::currentDate().toString("yyyy-MM-dd");
-    fileName += "_";
-    fileName += QTime::currentTime().toString("hh:mm:ss");
-    fileName += ".gif";
-    QImage image =
-        mainFrame->glView->grabFrameBuffer().scaled(gifWidth, gifHeight);
-    gif->addFrame(image);
-    timerCounter++;
-    if (timerCounter == 50) {
-        timerCounter = 0;
-        timer->stop();
-        gif->save(fileName);
-        delete gif;
-    }
 }

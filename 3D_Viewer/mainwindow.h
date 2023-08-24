@@ -3,6 +3,7 @@
 
 #include "dependencies.hpp"
 #include "mainframe.h"
+#include "record.h"
 #include "settings.h"
 
 class MainWindow : public QMainWindow {
@@ -17,12 +18,7 @@ class MainWindow : public QMainWindow {
     QMenu* recordMenu;
     MainFrame* mainFrame;
     Settings* settings;
-    QTimer* timer;
-    QGifImage* gif;
-
-    int timerCounter;
-    int gifWidth;
-    int gifHeight;
+    Record* record;
 
     void Designer();
     void Layouts();
@@ -35,9 +31,6 @@ class MainWindow : public QMainWindow {
    public slots:
     void slotOpenFile();
     void slotOpenSettings();
-    void slotMakeScreen();
-    void slotStartTimer();
-    void slotMakeGif();
 
    signals:
     void resized(int width, int height);

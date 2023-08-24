@@ -15,6 +15,7 @@ SOURCES += \
     main.cpp \
     mainframe.cpp \
     mainwindow.cpp \
+    record.cpp \
     settings.cpp
 
 HEADERS += \
@@ -24,6 +25,7 @@ HEADERS += \
     glview.h \
     mainframe.h \
     mainwindow.h \
+    record.h \
     settings.h
 
 LIBS += -lGLEW -lglfw -lOpenGL
