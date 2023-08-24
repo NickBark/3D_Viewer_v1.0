@@ -10,7 +10,9 @@ class Record : public QObject {
     explicit Record(QObject* parent = nullptr);
     explicit Record(GLView* gl = nullptr, QMenu* menu = nullptr)
         : glView(gl), recordMenu(menu) {
-        timer = new QTimer(this);
+        timerCounter = 0;
+        gifWidth = 640;
+        gifHeight = 480;
     }
 
     GLView* glView;

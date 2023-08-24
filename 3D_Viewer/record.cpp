@@ -28,9 +28,8 @@ void Record::slotMakeScreen() {
 
 void Record::slotStartTimer() {
     timerCounter = 0;
-    gifWidth = 640;
-    gifHeight = 480;
     gif = new QGifImage(QSize(gifWidth, gifHeight));
+    timer = new QTimer();
     gif->setDefaultDelay(100);
     timer->start(100);
     connect(timer, &QTimer::timeout, this, &Record::slotMakeGif);
@@ -50,6 +49,8 @@ void Record::slotMakeGif() {
             gif->save(fileName);
         else
             qDebug() << "SAVE CANSELED";
+
         delete gif;
+        delete timer;
     }
 }
