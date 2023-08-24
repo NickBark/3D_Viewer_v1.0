@@ -34,12 +34,12 @@ unistall:
 
 dist:
 	@mkdir -p $(HOME)/School_Projects_Rewiew/
-	mkdir -p SmartCalc_v1.0/src
+	mkdir -p 3DViewer_v1.0/src
 	cp -rf Makefile *.c *.h \
-	SmartCalc/ SmartCalc_v1.0/src/
-	tar cvzf SmartCalc_v1.0.tgz SmartCalc_v1.0/
-	mv SmartCalc_v1.0.tgz $(HOME)/School_Projects_Rewiew/
-	rm -rf SmartCalc_v1.0/
+	3D_Viewer/ 3DViewer_v1.0/src/
+	tar cvzf 3DViewer_v1.0.tgz 3DViewer_v1.0/
+	mv 3DViewer_v1.0.tgz $(HOME)/School_Projects_Rewiew/
+	rm -rf 3DViewer_v1.0/
 
 dvi: $(TEX_FILE).dvi
 	
