@@ -53,6 +53,7 @@ void GLView::initializeGL() {
     glClearColor(clearColorR, clearColorG, clearColorB, 1.0f);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);  // отсечение задних граней
+    glCullFace(GL_BACK);
 }
 
 void GLView::resizeGL(int w, int h) {
