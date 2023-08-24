@@ -135,6 +135,7 @@ void ControlPanel::Layouts() {
 }
 
 void ControlPanel::Properies() {
+    int spinBoxWidth = 80;
     // Move
     pbMoveLeftX->setAutoRepeat(true);
     pbMoveLeftX->setFixedWidth(25);
@@ -149,11 +150,11 @@ void ControlPanel::Properies() {
     pbMoveRightZ->setAutoRepeat(true);
     pbMoveRightZ->setFixedWidth(25);
 
-    dsbMoveXVal->setFixedWidth(70);
+    dsbMoveXVal->setFixedWidth(spinBoxWidth);
     dsbMoveXVal->setValue(10);
-    dsbMoveYVal->setFixedWidth(70);
+    dsbMoveYVal->setFixedWidth(spinBoxWidth);
     dsbMoveYVal->setValue(10);
-    dsbMoveZVal->setFixedWidth(70);
+    dsbMoveZVal->setFixedWidth(spinBoxWidth);
     dsbMoveZVal->setValue(10);
 
     // Rotate
@@ -170,12 +171,20 @@ void ControlPanel::Properies() {
     pbRotateRightZ->setAutoRepeat(true);
     pbRotateRightZ->setFixedWidth(25);
 
-    dsbRotateXVal->setFixedWidth(70);
-    dsbRotateXVal->setValue(0.1);
-    dsbRotateYVal->setFixedWidth(70);
-    dsbRotateYVal->setValue(0.1);
-    dsbRotateZVal->setFixedWidth(70);
-    dsbRotateZVal->setValue(0.1);
+    dsbRotateXVal->setFixedWidth(spinBoxWidth);
+    dsbRotateXVal->setRange(0, 360);
+    dsbRotateXVal->setValue(180);
+    dsbRotateXVal->setSuffix("°");
+
+    dsbRotateYVal->setFixedWidth(spinBoxWidth);
+    dsbRotateYVal->setRange(0, 360);
+    dsbRotateYVal->setValue(180);
+    dsbRotateYVal->setSuffix("°");
+
+    dsbRotateZVal->setFixedWidth(spinBoxWidth);
+    dsbRotateZVal->setRange(0, 360);
+    dsbRotateZVal->setValue(180);
+    dsbRotateZVal->setSuffix("°");
 
     // Scale
     pbScaleLeftX->setAutoRepeat(true);
@@ -191,11 +200,11 @@ void ControlPanel::Properies() {
     pbScaleRightZ->setAutoRepeat(true);
     pbScaleRightZ->setFixedWidth(25);
 
-    dsbScaleXVal->setFixedWidth(70);
+    dsbScaleXVal->setFixedWidth(spinBoxWidth);
     dsbScaleXVal->setValue(2);
-    dsbScaleYVal->setFixedWidth(70);
+    dsbScaleYVal->setFixedWidth(spinBoxWidth);
     dsbScaleYVal->setValue(2);
-    dsbScaleZVal->setFixedWidth(70);
+    dsbScaleZVal->setFixedWidth(spinBoxWidth);
     dsbScaleZVal->setValue(2);
 
     lShowXMove->setMaximumWidth(30);

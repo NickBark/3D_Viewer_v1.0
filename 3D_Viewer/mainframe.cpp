@@ -175,17 +175,23 @@ void MainFrame::slotMove() {
 void MainFrame::slotRotate() {
     if (list && list->head) {
         if (sender() == cPanel->pbRotateLeftX)
-            s21_rotate(list, cPanel->dsbRotateXVal->value(), 'X', 'L');
+            s21_rotate(list, cPanel->dsbRotateXVal->value() * M_PI / 180., 'X',
+                       'L');
         else if (sender() == cPanel->pbRotateRightX)
-            s21_rotate(list, cPanel->dsbRotateXVal->value(), 'X', 'R');
+            s21_rotate(list, cPanel->dsbRotateXVal->value() * M_PI / 180., 'X',
+                       'R');
         else if (sender() == cPanel->pbRotateLeftY)
-            s21_rotate(list, cPanel->dsbRotateYVal->value(), 'Y', 'L');
+            s21_rotate(list, cPanel->dsbRotateYVal->value() * M_PI / 180., 'Y',
+                       'L');
         else if (sender() == cPanel->pbRotateRightY)
-            s21_rotate(list, cPanel->dsbRotateYVal->value(), 'Y', 'R');
+            s21_rotate(list, cPanel->dsbRotateYVal->value() * M_PI / 180., 'Y',
+                       'R');
         else if (sender() == cPanel->pbRotateLeftZ)
-            s21_rotate(list, cPanel->dsbRotateZVal->value(), 'Z', 'L');
+            s21_rotate(list, cPanel->dsbRotateZVal->value() * M_PI / 180., 'Z',
+                       'L');
         else if (sender() == cPanel->pbRotateRightZ)
-            s21_rotate(list, cPanel->dsbRotateZVal->value(), 'Z', 'R');
+            s21_rotate(list, cPanel->dsbRotateZVal->value() * M_PI / 180., 'Z',
+                       'R');
 
         glView->createArrays(list, poly);
     }
