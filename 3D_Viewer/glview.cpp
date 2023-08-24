@@ -53,6 +53,7 @@ void GLView::initializeGL() {
     glClearColor(clearColorR, clearColorG, clearColorB, 1.0f);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);  // отсечение задних граней
+    glFrontFace(GL_CW);  // Задает ориентацию передних граней по часовой стрелке
     glCullFace(GL_BACK);  // отсечение только задних граней
 }
 
