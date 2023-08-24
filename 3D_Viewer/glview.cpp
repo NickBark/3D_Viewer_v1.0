@@ -51,9 +51,8 @@ void GLView::createArrays(LinkedListVertex* vertexList,
 
 void GLView::initializeGL() {
     glClearColor(clearColorR, clearColorG, clearColorB, 1.0f);
-    //    glEnable(GL_DEPTH_TEST);
-
-    //    glEnable(GL_CULL_FACE); // отсечение задних граней
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);  // отсечение задних граней
 }
 
 void GLView::resizeGL(int w, int h) {
@@ -70,9 +69,7 @@ void GLView::resizeGL(int w, int h) {
 }
 
 void GLView::paintGL() {
-    //    glClearColor(0, 0, 0, 0);
-    //    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
