@@ -9,15 +9,20 @@ void Record::slotMakeScreen() {
         QString fileName = QFileDialog::getSaveFileName(
             qobject_cast<QWidget*>(this), "Save as...", "screen.jpeg",
             "JPEG (*.jpeg)");
-        image.save(fileName, "JPEG", 85);
-        qDebug() << fileName;
+        if (!fileName.isEmpty())
+            image.save(fileName, "JPEG", 85);
+        else
+            qDebug() << "SAVE CANSELED";
+
     } else if (qobject_cast<QAction*>(sender()) ==
                recordMenu->actions().at(1)) {
         QString fileName = QFileDialog::getSaveFileName(
             qobject_cast<QWidget*>(this), "Save as...", "screen.bmp",
             "BMP (*.bmp)");
-        image.save(fileName, "BMP");
-        qDebug() << fileName;
+        if (!fileName.isEmpty())
+            image.save(fileName, "BMP");
+        else
+            qDebug() << "SAVE CANSELED";
     }
 }
 
@@ -41,7 +46,10 @@ void Record::slotMakeGif() {
             "GIF (*.gif)");
         timerCounter = 0;
         timer->stop();
-        gif->save(fileName);
+        if (!fileName.isEmpty())
+            gif->save(fileName);
+        else
+            qDebug() << "SAVE CANSELED";
         delete gif;
     }
 }

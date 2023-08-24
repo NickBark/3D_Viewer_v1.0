@@ -1,7 +1,6 @@
 #include "mainframe.h"
 
 MainFrame::MainFrame(QFrame* parent) : QFrame{parent} {
-    //    createLists("../references/cat.obj");
     Designer();
     Properies();
     Layouts();
