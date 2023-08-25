@@ -54,12 +54,12 @@ void Settings::Layouts() {
 
 void Settings::Properies() {
     sbVertexSize->setPrefix("Vertex Size:");
-    sbVertexSize->setRange(0, 255);
+    sbVertexSize->setRange(1, 255);
     sbVertexSize->setValue(2);
     cbVertexType->addItems({"Rectangle", "Circle", "Absent"});
 
     sbEdgeSize->setPrefix("Edge Width:");
-    sbEdgeSize->setRange(0, 255);
+    sbEdgeSize->setRange(1, 10);
     sbEdgeSize->setValue(1);
     cbEdgeType->addItems({"Solid", "Dotted"});
 
