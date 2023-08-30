@@ -24,6 +24,7 @@ void s21_remove_matrix(matrix_t* A) {
     }
 }
 
+/*
 int s21_eq_matrix(matrix_t* A, matrix_t* B) {
     int ret = -1;
 
@@ -97,7 +98,7 @@ int s21_mult_number(matrix_t* A, double number, matrix_t* result) {
 
     return ret;
 }
-
+*/
 int s21_mult_matrix(matrix_t* A, matrix_t* B, matrix_t* result) {
     int ret = 0;
 
@@ -119,7 +120,7 @@ int s21_mult_matrix(matrix_t* A, matrix_t* B, matrix_t* result) {
 
     return ret;
 }
-
+/*
 int s21_transpose(matrix_t* A, matrix_t* result) {
     int ret = 0;
     if (check_error(A) || !result) {
@@ -207,7 +208,7 @@ int s21_inverse_matrix(matrix_t* A, matrix_t* result) {
 
     return ret;
 }
-
+*/
 // ---------------- support func ---------------- //
 
 int check_error(matrix_t* A) {
@@ -225,7 +226,7 @@ int check_error(matrix_t* A) {
 
     return ret;
 }
-
+/*
 double recursion_determ(matrix_t* A) {
     double det = 0.0;
 
@@ -306,3 +307,4 @@ void print_m(matrix_t* A) {
         printf("\n");
     }
 }
+*/

@@ -27,21 +27,21 @@ int main(int argc, char** argv) {
         if (readFile(argv[1], &list, &poly)) {
             printf("ERROR\n");
         } else {
-            // Polygon* current = NULL;
-            // for (int i = 0; i < 255; i++) {
-            //     current = findPoly(&poly, 35288);
+            Polygon* current = NULL;
+            for (int i = 1; i <= poly.polygonCount; i++) {
+                current = findPoly(&poly, i);
 
-            //     if (current && current->pointArr[i])
-            //         printf("%d", current->pointArr[i]);
-            //     else
-            //         break;
-            // }
+                if (current && current->pointArr[i])
+                    printf("%d", current->pointArr[i]);
+                else
+                    break;
+            }
 
             // Polygon* curP = NULL;
             // Vertex* curV = NULL;
             // int exit = 0;
             // for (int j = 0; j < 255; j++) {
-            //     // if (exit) break;
+            //     if (exit) break;
             //     for (int i = 1; i <= poly.polygonCount; i++) {
             //         curP = findPoly(&poly, i);
             //         if (curP) {
@@ -50,12 +50,12 @@ int main(int argc, char** argv) {
             //                 break;
             //             }
             //             curV = findVertex(&list, curP->pointArr[j]);
-            //             // if (curV)
-            //             //     printf("%d--> x:%lf y:%lf z:%lf\n",
-            //             //            curP->pointArr[j], curV->x, curV->y,
-            //             //            curV->z);
-            //             // else
-            //             //     printf("NULL\n");
+            //             if (curV)
+            //                 printf("%d--> x:%lf y:%lf z:%lf\n",
+            //                        curP->pointArr[j], curV->x, curV->y,
+            //                        curV->z);
+            //             else
+            //                 printf("NULL\n");
             //         } else {
             //             printf("NULL and EXIT\n");
             //             break;
