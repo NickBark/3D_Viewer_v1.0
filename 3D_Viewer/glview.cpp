@@ -8,11 +8,11 @@
 GLView::GLView(QWidget* parent) : QGLWidget{parent} {
     setGeometry(10, 35, 600, 400);
     maxCoord = 10;
-    //    minCoord = 100;
+
     vertexArr = NULL;
     polyArr = NULL;
     vertexCount = 0;
-    //    polyArrNum = 0;
+
     pVertexList = NULL;
     pPolyList = NULL;
 

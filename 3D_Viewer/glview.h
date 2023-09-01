@@ -68,7 +68,6 @@ class GLView : public QGLWidget {
     LinkedListVertex* pVertexList;
     LinkedListPolygon* pPolyList;
 
-    //    Settings* settings;
     // vertex
     double vertexColorRed, vertexColorGreen, vertexColorBlue;
     float vertexSize;

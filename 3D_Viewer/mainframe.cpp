@@ -38,6 +38,10 @@ int MainFrame::createLists(const char* fileName) {
     list->current = NULL;
     list->vertexCount = 0;
 
+    xMoveSave = 0;
+    yMoveSave = 0;
+    zMoveSave = 0;
+
     int ret = 0;
 
     if (readFile(fileName, list, poly)) {
@@ -155,18 +159,25 @@ void MainFrame::Connector() {
 
 void MainFrame::slotMove() {
     if (list && list->head) {
-        if (sender() == cPanel->pbMoveLeftX)
+        if (sender() == cPanel->pbMoveLeftX) {
             s21_move(list, -cPanel->dsbMoveXVal->value(), 0, 0);
-        else if (sender() == cPanel->pbMoveRightX)
+            xMoveSave += -cPanel->dsbMoveXVal->value();
+        } else if (sender() == cPanel->pbMoveRightX) {
             s21_move(list, cPanel->dsbMoveXVal->value(), 0, 0);
-        else if (sender() == cPanel->pbMoveLeftY)
+            xMoveSave += cPanel->dsbMoveXVal->value();
+        } else if (sender() == cPanel->pbMoveLeftY) {
             s21_move(list, 0, -cPanel->dsbMoveYVal->value(), 0);
-        else if (sender() == cPanel->pbMoveRightY)
+            yMoveSave += -cPanel->dsbMoveYVal->value();
+        } else if (sender() == cPanel->pbMoveRightY) {
             s21_move(list, 0, cPanel->dsbMoveYVal->value(), 0);
-        else if (sender() == cPanel->pbMoveLeftZ)
+            yMoveSave += cPanel->dsbMoveYVal->value();
+        } else if (sender() == cPanel->pbMoveLeftZ) {
             s21_move(list, 0, 0, -cPanel->dsbMoveZVal->value());
-        else if (sender() == cPanel->pbMoveRightZ)
+            zMoveSave += -cPanel->dsbMoveZVal->value();
+        } else if (sender() == cPanel->pbMoveRightZ) {
             s21_move(list, 0, 0, cPanel->dsbMoveZVal->value());
+            zMoveSave += cPanel->dsbMoveZVal->value();
+        }
 
         glView->createArrays(list, poly);
     }
@@ -174,24 +185,37 @@ void MainFrame::slotMove() {
 
 void MainFrame::slotRotate() {
     if (list && list->head) {
-        if (sender() == cPanel->pbRotateLeftX)
+        if (sender() == cPanel->pbRotateLeftX) {
+            setCenter();
             s21_rotate(list, cPanel->dsbRotateXVal->value() * M_PI / 180., 'X',
                        'L');
-        else if (sender() == cPanel->pbRotateRightX)
+            setBack();
+        } else if (sender() == cPanel->pbRotateRightX) {
+            setCenter();
             s21_rotate(list, cPanel->dsbRotateXVal->value() * M_PI / 180., 'X',
                        'R');
-        else if (sender() == cPanel->pbRotateLeftY)
+            setBack();
+        } else if (sender() == cPanel->pbRotateLeftY) {
+            setCenter();
             s21_rotate(list, cPanel->dsbRotateYVal->value() * M_PI / 180., 'Y',
                        'L');
-        else if (sender() == cPanel->pbRotateRightY)
+            setBack();
+        } else if (sender() == cPanel->pbRotateRightY) {
+            setCenter();
             s21_rotate(list, cPanel->dsbRotateYVal->value() * M_PI / 180., 'Y',
                        'R');
-        else if (sender() == cPanel->pbRotateLeftZ)
+            setBack();
+        } else if (sender() == cPanel->pbRotateLeftZ) {
+            setCenter();
             s21_rotate(list, cPanel->dsbRotateZVal->value() * M_PI / 180., 'Z',
                        'L');
-        else if (sender() == cPanel->pbRotateRightZ)
+            setBack();
+        } else if (sender() == cPanel->pbRotateRightZ) {
+            setCenter();
             s21_rotate(list, cPanel->dsbRotateZVal->value() * M_PI / 180., 'Z',
                        'R');
+            setBack();
+        }
 
         glView->createArrays(list, poly);
     }
@@ -215,3 +239,11 @@ void MainFrame::slotScale() {
         glView->createArrays(list, poly);
     }
 }
+
+void MainFrame::setCenter() {
+    s21_move(list, -xMoveSave, -yMoveSave, -zMoveSave);
+}
+
+void MainFrame::setBack() { s21_move(list, xMoveSave, yMoveSave, zMoveSave); }
+
+void MainFrame::slotSetHome() {}

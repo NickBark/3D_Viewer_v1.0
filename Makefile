@@ -29,7 +29,7 @@ install: build unistall
 	@cp -rf  build-3DViewer-Desktop/ $(HOME)/School_Projects_Rewiew/3DViewer_v1.0/
 	make clean
 
-unistall: 
+uninstall: 
 	rm -rf $(HOME)/School_Projects_Rewiew/3DViewer_v1.0/
 
 dist:
@@ -53,18 +53,18 @@ debug: clean $(LIB) main.o
 	$(CC) $(CFLAGS) main.o $(LIB) -lm -lpcre -o debug
 	./debug references/cat.obj
 
-valgrind: test
+valgrind: tests
 	valgrind --tool=memcheck --leak-check=full --track-origins=yes \
 	 --show-reachable=yes --num-callers=20 --track-fds=yes ./test
 
-test: $(LIB)
-	$(CC) $(CFLAGS) -g tests/*.c $(LIB) $(TEST_FLAGS) -o test
+tests: $(LIB)
+	$(CC) $(CFLAGS) -g tests/*.c $(LIB) $(TEST_FLAGS) -lm -lpcre -o test
 	./test
 
 add_coverage_flag: 
 	$(eval CFLAGS += --coverage)
 
-gcov_report: add_coverage_flag test
+gcov_report: add_coverage_flag tests
 #	rm test-*
 	lcov -t “gcov_test” -o test.info --rc lcov_branch_coverage=1 --no-external -c -d .
 	genhtml -o report/ test.info --rc lcov_branch_coverage=1

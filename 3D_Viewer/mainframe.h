@@ -32,14 +32,22 @@ class MainFrame : public QFrame {
     int createLists(const char* fileName);
     int uniqueEdges();
 
+    double xMoveSave;
+    double yMoveSave;
+    double zMoveSave;
+
    private:
     QVBoxLayout* vbl;
     QHBoxLayout* hbl;
+
+    void setCenter();
+    void setBack();
 
    private slots:
     void slotMove();
     void slotRotate();
     void slotScale();
+    void slotSetHome();
 
    signals:
 };
